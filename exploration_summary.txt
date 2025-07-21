@@ -1,0 +1,60 @@
+================================================================================
+WEBSITE EXPLORATION SUMMARY REPORT
+Site: https://decretidigitali.regione.liguria.it
+Timestamp: 2025-07-18 10:16:04
+================================================================================
+
+SUCCESSFUL ENDPOINTS (1):
+  /                    - Home
+
+FAILED ENDPOINTS (33):
+  /cerca               - Status: No response
+  /ricerca             - Status: No response
+  /search              - Status: No response
+  /decreti             - Status: No response
+  /delibere            - Status: No response
+  /bandi               - Status: No response
+  /pubblicazioni       - Status: No response
+  /dgr                 - Status: No response
+  /dcr                 - Status: No response
+  /atti                - Status: No response
+  /documenti           - Status: No response
+  /amministrazione     - Status: No response
+  /trasparenza         - Status: No response
+  /albo                - Status: No response
+  /pretorio            - Status: No response
+  /normativa           - Status: No response
+  /circolari           - Status: No response
+  /determinazioni      - Status: No response
+  /ordinanze           - Status: No response
+  /provvedimenti       - Status: No response
+  /registro            - Status: No response
+  /archivio            - Status: No response
+  /elenco              - Status: No response
+  /lista               - Status: No response
+  /consultazione       - Status: No response
+  /visualizza          - Status: No response
+  /dettaglio           - Status: No response
+  /risultati           - Status: No response
+  /api                 - Status: No response
+  /api/search          - Status: No response
+  /api/decreti         - Status: No response
+  /sitemap.xml         - Status: No response
+  /robots.txt          - Status: No response
+
+SEARCH FUNCTIONALITY:
+  Found 2 potential search forms:
+    - /: POST index.php
+    - /: POST /components/com_lddocs/getDocumentsDownload.php
+
+DECRETO-RELATED CONTENT:
+  No decreto-related content found
+
+RECOMMENDATIONS:
+  1. Search functionality detected - examine forms for proper usage
+  2. No obvious decreto-related content found in main navigation
+
+================================================================================
+For detailed information, see exploration_results.json
+For manual inspection, see main_page.html
+================================================================================

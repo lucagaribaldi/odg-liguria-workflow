@@ -2,7 +2,7 @@
 # Makefile for managing the ODG Liguria Workflow project
 
 # Variables
-PYTHON = python
+PYTHON = python3
 PIP = pip
 VENV = venv
 VENV_BIN = $(VENV)/bin
@@ -23,8 +23,10 @@ help:
 	@echo "  clean            Clean temporary files and caches"
 	@echo ""
 	@echo "Development:"
-	@echo "  run              Run the main application"
-	@echo "  dashboard        Start the web dashboard"
+	@echo "  run              Run the main application (PDF processing with deferred scraping)"
+	@echo "  run-immediate    Run with immediate scraping (slower but complete)"
+	@echo "  check-publication Check publication status of unpublished deliberations"
+	@echo "  dashboard        Generate analytics dashboard"
 	@echo "  dev              Run in development mode"
 	@echo ""
 	@echo "Testing:"
@@ -89,13 +91,36 @@ clean:
 # Development
 .PHONY: run
 run:
-	@echo "Starting ODG Liguria Workflow..."
-	$(PYTHON) -m $(MAIN_MODULE)
+	@if [ "$(PDF)" ]; then \
+		echo "Running ODG Liguria Workflow with PDF: $(PDF)"; \
+		$(PYTHON) scripts/cli.py process --pdf "$(PDF)" --scraping-mode deferred --verbose; \
+	else \
+		echo "Usage: make run PDF=data/input/sample.pdf"; \
+		echo "Available PDFs:"; \
+		ls -la data/input/*.pdf 2>/dev/null || echo "No PDF files found in data/input/"; \
+	fi
+
+.PHONY: run-immediate
+run-immediate:
+	@if [ "$(PDF)" ]; then \
+		echo "Running ODG Liguria Workflow with immediate scraping: $(PDF)"; \
+		$(PYTHON) scripts/cli.py process --pdf "$(PDF)" --scraping-mode immediate --verbose; \
+	else \
+		echo "Usage: make run-immediate PDF=data/input/sample.pdf"; \
+		echo "Available PDFs:"; \
+		ls -la data/input/*.pdf 2>/dev/null || echo "No PDF files found in data/input/"; \
+	fi
+
+.PHONY: check-publication
+check-publication:
+	@echo "Checking publication status of unpublished deliberations..."
+	$(PYTHON) scripts/cli.py check-publication --days 30 --verbose
 
 .PHONY: dashboard
 dashboard:
-	@echo "Starting web dashboard..."
-	$(PYTHON) -m $(DASHBOARD_MODULE)
+	@echo "Generating analytics dashboard..."
+	$(PYTHON) scripts/cli.py dashboard --output dashboard.html --open
+	@echo "Dashboard generated and opened in browser!"
 
 .PHONY: dev
 dev:
@@ -107,6 +132,24 @@ dev:
 test:
 	@echo "Running all tests..."
 	$(PYTHON) -m pytest $(TEST_DIR) -v
+
+.PHONY: test-all
+test-all:
+	@echo "Running comprehensive test suite..."
+	@echo "🧪 Running linting checks..."
+	$(PYTHON) -m flake8 src/ scripts/ --max-line-length=100 --extend-ignore=E203,W503
+	$(PYTHON) -m black --check src/ scripts/
+	$(PYTHON) -m isort --check-only src/ scripts/
+	@echo "🧪 Running unit tests..."
+	$(PYTHON) -m pytest $(TEST_DIR)/unit -v
+	@echo "🧪 Running integration tests..."
+	$(PYTHON) -m pytest $(TEST_DIR)/integration -v
+	@echo "🧪 Running tests with coverage..."
+	$(PYTHON) -m pytest $(TEST_DIR) --cov=$(SRC_DIR) --cov-report=html --cov-report=term-missing -v
+	@echo "🧪 Running security checks..."
+	$(PYTHON) -m bandit -r src/ -f text || true
+	$(PYTHON) -m safety check || true
+	@echo "✅ All tests completed!"
 
 .PHONY: test-coverage
 test-coverage:
@@ -149,8 +192,23 @@ pre-commit:
 
 # Verification
 .PHONY: verify
-verify: lint type-check test check-deps check-config
-	@echo "All verification checks passed!"
+verify:
+	@echo "🔍 Running complete verification suite..."
+	@echo "🔍 Testing connection to external services..."
+	$(PYTHON) scripts/cli.py test-connection --detailed
+	@echo "🔍 Verifying decreto publication status..."
+	$(PYTHON) scripts/cli.py verify --days 30
+	@echo "🔍 Running health checks..."
+	$(PYTHON) -c "from src.workflow_orchestrator import ODGWorkflowOrchestrator; import os; from dotenv import load_dotenv; load_dotenv(); orch = ODGWorkflowOrchestrator(os.getenv('NOTION_TOKEN'), os.getenv('NOTION_DATABASE_ID'), os.getenv('ANTHROPIC_API_KEY')); print('Health check:', orch.health_check())"
+	@echo "🔍 Running linting checks..."
+	$(PYTHON) -m flake8 src/ scripts/ --max-line-length=100 --extend-ignore=E203,W503
+	@echo "🔍 Running type checking..."
+	$(PYTHON) -m mypy src/ --ignore-missing-imports || true
+	@echo "🔍 Running tests..."
+	$(PYTHON) -m pytest $(TEST_DIR) -v --tb=short
+	@echo "🔍 Checking dependencies..."
+	$(PIP) check
+	@echo "✅ All verification checks completed!"
 
 .PHONY: check-deps
 check-deps:

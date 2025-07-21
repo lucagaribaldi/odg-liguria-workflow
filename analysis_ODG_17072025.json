@@ -1,0 +1,282 @@
+{
+  "pdf_file": "data/input/ODG_17072025.pdf",
+  "analysis_date": "2025-07-18T15:22:56.497933",
+  "session_info": {
+    "numero_seduta": "3930",
+    "data_seduta": "2025-07-17",
+    "anno": "2025"
+  },
+  "total_deliberations": 19,
+  "tipo_distribution": {
+    "Deliberazione": 17,
+    "Emendamenti a DDL o PDL di iniziativa consigliare o popolare": 1,
+    "Relazione/Argomento di Giunta su questioni particolari": 1
+  },
+  "fs_count": 12,
+  "synthesized_deliberations": [
+    {
+      "numero": "1",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "FI.L.S.E. S.p.A.: Progetto di bilancio dell'esercizio 2024 - Indirizzi per il rappresentante della Regione all'Assemblea di Coordinamento dei soci / Assemblea dei soci. del 22 luglio 2025.",
+      "proponente": "BUCCI Marco",
+      "fs_flag": true,
+      "order": 1,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: FI.L.S.E. S.p.A.: Progetto",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "2",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Relazione previsionale per l'anno 2025 della Finanziaria Ligure per lo Sviluppo Economico - FI.L.S.E. S.p.A. - Indirizzi al rappresentante regionale all'Assemblea di Coordinamento dei Soci ed all'Assemblea dei Soci.",
+      "proponente": "BUCCI Marco",
+      "fs_flag": false,
+      "order": 2,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Relazione previsionale l'anno",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "3",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Riconoscimento di debiti fuori bilancio derivanti da sentenze esecutive. Impegno euro 45.415,80",
+      "proponente": "BUCCI Marco",
+      "fs_flag": true,
+      "order": 3,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Riconoscimento debiti fuori",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "5",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Corte costituzionale. Questione di legittimità costituzionale dell’art. 26, comma 1, lett. a) della L.R. n. 20 del 2006 sollevata dalla Corte dei conti – Sezioni riunite in speciale composizione – con ordinanza n. 8/2025. Costituzione in giudizio.",
+      "proponente": "BUCCI Marco",
+      "fs_flag": true,
+      "order": 4,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Corte costituzionale. Questione",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "6",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Riconoscimento di debiti fuori bilancio derivanti da sentenze esecutive. Impegno euro 9.807,61.",
+      "proponente": "BUCCI Marco",
+      "fs_flag": true,
+      "order": 5,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Riconoscimento debiti fuori",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "7",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Approvazione Bilancio di esercizio 2024 di cui al Decreto del Direttore Generale n. 125 del 26/04/2025 dell'Agenzia Ligure per gli Studenti e l'Orientamento – ALISEO",
+      "proponente": "BUCCI Marco, FERRO Simona",
+      "fs_flag": true,
+      "order": 6,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Approvazione Bilancio esercizio",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "8",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Approvazione del budget economico annuale 2025 e del budget economico triennale 2025-2027 dell’Azienda Regionale Territoriale per l’Edilizia (A.R.T.E.) della Provincia di Savona, approvati con decreto n.148 adottato in data 11/06/2025 dall’Amministratore Unico dell’Azienda",
+      "proponente": "BUCCI Marco, SCAJOLA Marco",
+      "fs_flag": true,
+      "order": 7,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Approvazione budget economico",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "9",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Approvazione del Bilancio di esercizio 2024 di cui al Decreto n. 931 del 22/04/2025 del Direttore Generale dell’Agenzia Regionale per il Lavoro, la Formazione e l'Accreditamento - A.L.F.A.",
+      "proponente": "BUCCI Marco, FERRO Simona",
+      "fs_flag": true,
+      "order": 8,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Approvazione Bilancio esercizio",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "10",
+      "tipo_atto": "Emendamenti a DDL o PDL di iniziativa consigliare o popolare",
+      "oggetto": "EMENDAMENTI AL DISEGNO DI LEGGE N.10/70/2025 (ASSESTAMENTO AL BILANCIO DI PREVISIONE DELLA REGIONE LIGURIA PER GLI ANNI FINANZIARI 2025-2027 E II VARIAZIONE).",
+      "proponente": "BUCCI Marco",
+      "fs_flag": true,
+      "order": 9,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Emendamenti a DDL o PDL di iniziativa consigliare ",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "11",
+      "tipo_atto": "Relazione/Argomento di Giunta su questioni particolari",
+      "oggetto": "Determinazioni conseguenti alla decisione di parificazione del rendiconto per l’esercizio 2024 del 17/07/2025 da parte della Sezione Regionale di Controllo della Corte dei Conti",
+      "proponente": "BUCCI Marco",
+      "fs_flag": false,
+      "order": 10,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Relazione/Argomento di Giunta su questioni partico",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "12",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Programma regionale di Sviluppo Rurale per il periodo 2014-2022. Adozione di talune modifiche secondo e procedure di cui all’art. 6 punto 1bis l.r. 44/1995 e ss.mm.ii.",
+      "proponente": "PIANA Alessandro",
+      "fs_flag": false,
+      "order": 11,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Programma regionale Sviluppo",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "14",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Approvazione, ai sensi e per gli effetti dell’articolo 5, c.4 della legge regionale n. 4/2022 del Piano integrato di attività e organizzazione 2025-2027 dell'Agenzia Regionale ligure per i rifiuti - ARLIR",
+      "proponente": "GIAMPEDRONE Giacomo Raul",
+      "fs_flag": true,
+      "order": 12,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Approvazione, sensi effetti",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "15",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "D.G.R. n. 925/2022. Approvazione del Piano integrato di attività e organizzazione PIAO 2025-2027. Annualità 2025 di ARPAL ex decreto del Commissario Straordinario n. 24 del 13/02/2025",
+      "proponente": "GIAMPEDRONE Giacomo Raul",
+      "fs_flag": true,
+      "order": 13,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: D.G.R. 925/2022. Approvazione",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "16",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Approvazione schemi di Protocollo di intesa tra Regione Liguria, Regione Campania e i Comuni di Cercola e Marano di Napoli, per rendere operativi i gemellaggi di cui alla Direttiva del Presidente del Consiglio dei Ministri del 14.02.2014 c.d. Direttiva Rischio Vesuvio ed al DPCM 24/06/2016 c.d. Decreto Rischio Campi Flegrei.",
+      "proponente": "GIAMPEDRONE Giacomo Raul",
+      "fs_flag": false,
+      "order": 14,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Approvazione schemi Protocollo",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "17",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Approvazione del Protocollo di Intesa relativo alle Indicazioni per la prevenzione e protezione dai rischi correlati alle condizioni di microclima negli ambienti di lavoro per la provincia di Genova File ODG_17/07/2025.pdf; versione 1. --- PAGE 5 ---",
+      "proponente": "NICOLO' Massimo",
+      "fs_flag": false,
+      "order": 15,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Approvazione Protocollo Intesa",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "18",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Ridestinazione dei fondi di cui al punto a) della DGR 961/2022 fino ad un massimo di euro 200.000,00, ad implementazione del punto b) della stessa per coprire il servizio svolto da RTI ECOVER srl – G.P in Liguria a seguito della gara n 9034463 lotto unico, affidata da Regione Liguria, per le zone I e II di restrizione PSA di recupero, trasporto, stoccaggio temporaneo e smaltimento di carcasse di cinghiale.",
+      "proponente": "NICOLO' Massimo",
+      "fs_flag": false,
+      "order": 16,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Ridestinazione fondi punto",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "19",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Approvazione Programma attuativo degli interventi regionali in materia di emigrazione per l'anno 2025 ai sensi dell'articolo 4, comma 3, della legge regionale 6 febbraio 2020, n. 3 (Disciplina degli interventi per favorire la diffusione delle tradizioni liguri nel mondo e a sostegno dei liguri emigrati). Prenotazione risorse per euro 140.000,00",
+      "proponente": "RIPAMONTI Paolo",
+      "fs_flag": false,
+      "order": 17,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Approvazione Programma attuativo",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "20",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Partecipazione di Regione Liguria al bando 7/2025 emanato dalla Presidenza del Consiglio dei ministri – Dipartimento per le Pari Opportunità per il finanziamento di progetti a sostegno di soggetti vittime di tratta e grave sfruttamento",
+      "proponente": "FERRO Simona, RIPAMONTI Paolo",
+      "fs_flag": true,
+      "order": 18,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Partecipazione Regione Liguria",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    },
+    {
+      "numero": "21",
+      "tipo_atto": "Deliberazione",
+      "oggetto": "Linee di indirizzo alla delegazione trattante di parte datoriale per la contrattazione collettiva integrativa relativa al personale della Dirigenza e al personale del Comparto",
+      "proponente": "RIPAMONTI Paolo",
+      "fs_flag": true,
+      "order": 19,
+      "seduta": "3930",
+      "data_seduta": "2025-07-17",
+      "sintesi_rapida": "Deliberazione: Linee indirizzo alla",
+      "ai_confidence": 0.7,
+      "generated_with_ai": false
+    }
+  ],
+  "comparison": {
+    "3928": {
+      "date": "2025-07-03",
+      "deliberations": 9,
+      "file": "ODG_03072025.pdf"
+    },
+    "3929": {
+      "date": "2025-07-10",
+      "deliberations": 22,
+      "file": "ODG_10072025.pdf"
+    },
+    "3930": {
+      "date": "2025-07-17",
+      "deliberations": 19,
+      "file": "ODG_17072025.pdf"
+    }
+  }
+}

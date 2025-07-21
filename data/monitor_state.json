@@ -1,0 +1,35 @@
+{
+  "ODG_10072025.pdf": {
+    "path": "data/input/ODG_10072025.pdf",
+    "name": "ODG_10072025.pdf",
+    "size": 69536,
+    "mtime": 1752756121.7019525,
+    "hash_md5": "52f7a8c0caff15c407c928ffdeda191a",
+    "first_seen": "2025-07-18T15:13:46.981861",
+    "last_processed": "2025-07-18T15:13:46.982121",
+    "processing_status": "completed",
+    "error_message": null
+  },
+  "ODG_03072025.pdf": {
+    "path": "data/input/ODG_03072025.pdf",
+    "name": "ODG_03072025.pdf",
+    "size": 62373,
+    "mtime": 1752825069.9241052,
+    "hash_md5": "86b53eb301119deea39fa8851c1cfd29",
+    "first_seen": "2025-07-18T15:13:46.982036",
+    "last_processed": "2025-07-18T15:13:46.982299",
+    "processing_status": "completed",
+    "error_message": null
+  },
+  "ODG_17072025.pdf": {
+    "path": "data/input/ODG_17072025.pdf",
+    "name": "ODG_17072025.pdf",
+    "size": 68527,
+    "mtime": 1752844896.118867,
+    "hash_md5": "758d34bef677fa69109ebed23721656d",
+    "first_seen": "2025-07-18T15:23:05.656180",
+    "last_processed": "2025-07-18T15:23:05.656287",
+    "processing_status": "completed",
+    "error_message": null
+  }
+}

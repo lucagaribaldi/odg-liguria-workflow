@@ -15,7 +15,8 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+                         Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
             line-height: 1.6;
@@ -176,15 +177,15 @@
             .container {
                 padding: 15px;
             }
-            
+
             header h1 {
                 font-size: 2rem;
             }
-            
+
             .charts-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .metric-value {
                 font-size: 2rem;
             }
@@ -208,9 +209,11 @@
     <div class="container">
         <header>
             <h1>🏛️ ODG Liguria - Dashboard Analytics</h1>
-            <p class="subtitle">Monitoraggio deliberazioni e decreti della Regione Liguria</p>
+            <p class="subtitle">
+                Monitoraggio deliberazioni e decreti della Regione Liguria
+            </p>
             <div class="last-update">
-                Ultimo aggiornamento: 17/07/2025 16:02:24
+                Ultimo aggiornamento: 18/07/2025 09:46:57
             </div>
         </header>
 
@@ -246,17 +249,17 @@
                 <h3>📊 Distribuzione per Categoria</h3>
                 <canvas id="categoryChart"></canvas>
             </div>
-            
+
             <div class="chart-container">
                 <h3>👥 Distribuzione per Proponente</h3>
                 <canvas id="proponentChart"></canvas>
             </div>
-            
+
             <div class="chart-container">
                 <h3>📈 Andamento Mensile</h3>
                 <canvas id="monthlyChart"></canvas>
             </div>
-            
+
             <div class="chart-container">
                 <h3>✅ Stato Pubblicazione</h3>
                 <canvas id="publicationChart"></canvas>
@@ -274,9 +277,10 @@
     <script>
         
         // Chart configuration
-        Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif';
+        Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", ' +
+                                      'Roboto, Oxygen, Ubuntu, Cantarell, sans-serif';
         Chart.defaults.color = '#666';
-        
+
         // Category Chart
         const categoryCtx = document.getElementById('categoryChart').getContext('2d');
         new Chart(categoryCtx, {
@@ -303,7 +307,7 @@
                 }
             }
         });
-        
+
         // Proponent Chart
         const proponentCtx = document.getElementById('proponentChart').getContext('2d');
         new Chart(proponentCtx, {
@@ -332,7 +336,7 @@
                 }
             }
         });
-        
+
         // Monthly Chart
         const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
         new Chart(monthlyCtx, {
@@ -362,7 +366,7 @@
                 }
             }
         });
-        
+
         // Publication Status Chart
         const publicationCtx = document.getElementById('publicationChart').getContext('2d');
         new Chart(publicationCtx, {
@@ -386,13 +390,13 @@
                 }
             }
         });
-        
+
         // Auto-refresh functionality
         let refreshCounter = 30;
-        
+
         function updateRefreshCounter() {
             document.querySelector('.refresh-indicator').textContent = `Aggiornamento in ${refreshCounter}s`;
-            
+
             if (refreshCounter <= 0) {
                 location.reload();
             } else {
@@ -400,11 +404,11 @@
                 setTimeout(updateRefreshCounter, 1000);
             }
         }
-        
+
         // Add refresh indicator
         document.body.insertAdjacentHTML('beforeend', '<div class="refresh-indicator">Aggiornamento in 30s</div>');
         updateRefreshCounter();
-        
+
         // Add click handlers for interactive elements
         document.querySelectorAll('.metric-card').forEach(card => {
             card.addEventListener('click', function() {
