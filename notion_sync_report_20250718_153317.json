@@ -1,0 +1,65 @@
+{
+  "sync_timestamp": "2025-07-18T15:33:17.042988",
+  "backup_file": "data/backups/workflow_backup_20250718_152226.json",
+  "total_deliberations": 50,
+  "sessions_synced": 3,
+  "session_details": {
+    "3928": {
+      "deliberations_count": 9,
+      "sample_deliberation": {
+        "numero": "1",
+        "tipo_atto": "Disegno di legge di iniziativa della Giunta regionale",
+        "oggetto": "Disposizioni di carattere fiscale e altre disposizioni di adeguamento normativo",
+        "proponente": "BUCCI Marco",
+        "fs_flag": false,
+        "order": 1,
+        "seduta": "3928",
+        "data_seduta": "2025-07-03",
+        "sintesi_rapida": "Disegno di legge di iniziativa della Giunta region",
+        "ai_confidence": 0.7,
+        "generated_with_ai": false
+      }
+    },
+    "3929": {
+      "deliberations_count": 22,
+      "sample_deliberation": {
+        "numero": "1",
+        "tipo_atto": "Deliberazione",
+        "oggetto": "AZIENDA PUBBLICA DI SERVIZI ALLA PERSONA OPERE PIE RIUNITE DEVOTO MARINI SIVORI - CONSIGLIO DI AMMINISTRAZIONE - SCELTA RAPPRESENTANTE REGIONALE",
+        "proponente": "BUCCI Marco",
+        "fs_flag": true,
+        "order": 1,
+        "seduta": "3929",
+        "data_seduta": "2025-07-10",
+        "sintesi_rapida": "Deliberazione: AZIENDA PUBBLICA SERVIZI",
+        "ai_confidence": 0.7,
+        "generated_with_ai": false
+      }
+    },
+    "3930": {
+      "deliberations_count": 19,
+      "sample_deliberation": {
+        "numero": "1",
+        "tipo_atto": "Deliberazione",
+        "oggetto": "FI.L.S.E. S.p.A.: Progetto di bilancio dell'esercizio 2024 - Indirizzi per il rappresentante della Regione all'Assemblea di Coordinamento dei soci / Assemblea dei soci. del 22 luglio 2025.",
+        "proponente": "BUCCI Marco",
+        "fs_flag": true,
+        "order": 1,
+        "seduta": "3930",
+        "data_seduta": "2025-07-17",
+        "sintesi_rapida": "Deliberazione: FI.L.S.E. S.p.A.: Progetto",
+        "ai_confidence": 0.7,
+        "generated_with_ai": false
+      }
+    }
+  },
+  "sync_stats": {
+    "created": 50,
+    "updated": 0,
+    "errors": 0,
+    "skipped": 0,
+    "duplicates_avoided": 0
+  },
+  "database_id": "233a1100882a8079a080e6c0435eaa10",
+  "success": true
+}
