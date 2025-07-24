@@ -29,6 +29,13 @@ help:
 	@echo "  dashboard        Generate analytics dashboard"
 	@echo "  dev              Run in development mode"
 	@echo ""
+	@echo "Decreto Monitoring:"
+	@echo "  monitor-decreto  Monitor decreto publications and sync with Notion"
+	@echo "  decreto-status   Show decreto monitoring status"
+	@echo "  decreto-force    Force decreto check (ignores timing)"
+	@echo "  decreto-setup    Setup decreto monitoring automation"
+	@echo "  decreto-scrape   Advanced scraping with REG_AMM extraction"
+	@echo ""
 	@echo "Testing:"
 	@echo "  test             Run all tests"
 	@echo "  test-coverage    Run tests with coverage report"
@@ -55,6 +62,14 @@ help:
 	@echo "  backup           Create full system backup"
 	@echo "  logs             View recent logs"
 	@echo "  status           Show system status"
+	@echo "  status-extended  Extended status with decreto info"
+	@echo ""
+	@echo "Special Workflows:"
+	@echo "  full-workflow    Complete workflow (PDF + decreto monitoring)"
+	@echo "  decreto-watch    Continuous decreto monitoring"
+	@echo "  notion-test      Test Notion API connection"
+	@echo "  decreto-logs     View decreto monitoring logs"
+	@echo "  decreto-clean    Clean decreto temporary files"
 
 # Setup and Installation
 .PHONY: install
@@ -309,6 +324,104 @@ docs:
 	else \
 		echo "Documentation directory not found"; \
 	fi
+
+# Decreto Monitoring (New functionality)
+.PHONY: monitor-decreto
+monitor-decreto:
+	@echo "🔍 Monitoring decreto publications with Notion sync..."
+	$(PYTHON) decreto_notion_sync.py
+
+.PHONY: decreto-status
+decreto-status:
+	@echo "📊 Decreto monitoring status:"
+	$(PYTHON) decreto_auto_monitor.py status
+
+.PHONY: decreto-force
+decreto-force:
+	@echo "🔧 Forcing decreto check..."
+	$(PYTHON) decreto_auto_monitor.py force
+
+.PHONY: decreto-setup
+decreto-setup:
+	@echo "🤖 Setting up decreto monitoring automation..."
+	@if [ -f "setup_decreto_automation.sh" ]; then \
+		chmod +x setup_decreto_automation.sh; \
+		./setup_decreto_automation.sh; \
+	else \
+		echo "setup_decreto_automation.sh not found"; \
+	fi
+
+.PHONY: decreto-watch
+decreto-watch:
+	@echo "👁️  Starting continuous decreto monitoring..."
+	@echo "Press Ctrl+C to stop"
+	@while true; do \
+		$(MAKE) monitor-decreto; \
+		echo "⏱️  Next check in 6 hours..."; \
+		sleep 21600; \
+	done
+
+.PHONY: decreto-logs
+decreto-logs:
+	@echo "📜 Recent decreto monitoring logs:"
+	@if [ -f decreto_monitor.log ]; then \
+		tail -20 decreto_monitor.log; \
+	else \
+		echo "No decreto logs found"; \
+	fi
+
+.PHONY: decreto-clean
+decreto-clean:
+	@echo "🧹 Cleaning decreto monitoring files..."
+	@rm -f decreto_sync_report_*.json
+	@rm -f daily_summary_*.json
+	@rm -f advanced_decreto_search_results_*.json
+	@rm -f production_decreto_results_*.json
+	@echo "Decreto monitoring files cleaned"
+
+.PHONY: decreto-scrape-advanced
+decreto-scrape-advanced:
+	@echo "🔍 Running advanced decreto scraping with REG_AMM extraction..."
+	$(PYTHON) decreto_scraper_production.py
+
+.PHONY: decreto-test-form
+decreto-test-form:
+	@echo "🧪 Testing decreto form structure and functionality..."
+	@$(PYTHON) -c "from decreto_scraper_production import ProductionDecretoScraper; scraper = ProductionDecretoScraper(); scraper.test_search_functionality()"
+
+.PHONY: decreto-scrape
+decreto-scrape:
+	@echo "🎯 Running targeted decreto scraping for Notion deliberations..."
+	@echo "This will search for REG_AMM attachments and update URL_Decreto field"
+	$(PYTHON) decreto_scraper_final_working.py
+
+.PHONY: notion-test
+notion-test:
+	@echo "🔗 Testing Notion connection..."
+	@$(PYTHON) -c "import os; exec('''try:\n    from dotenv import load_dotenv\n    load_dotenv()\n    token = os.getenv('NOTION_TOKEN')\n    db_id = os.getenv('NOTION_DATABASE_ID')\n    if token and db_id and token != 'your_notion_integration_token_here':\n        print('✅ Notion credentials configured')\n        import requests\n        headers = {'Authorization': f'Bearer {token}', 'Notion-Version': '2022-06-28'}\n        resp = requests.get(f'https://api.notion.com/v1/databases/{db_id}', headers=headers, timeout=10)\n        print('✅ Notion connection successful' if resp.status_code == 200 else f'❌ Notion connection failed: {resp.status_code}')\n    else:\n        print('⚠️ Notion credentials not configured in .env')\nexcept Exception as e:\n    print(f'❌ Error testing Notion: {e}')\n''')"
+
+# Complete system workflow
+.PHONY: full-workflow
+full-workflow:
+	@echo "🏛️  Running complete ODG Liguria workflow..."
+	@if [ "$(PDF)" ]; then \
+		echo "📄 Processing PDF: $(PDF)"; \
+		$(MAKE) run PDF=$(PDF); \
+		echo "🔍 Checking decreto publications..."; \
+		$(MAKE) monitor-decreto; \
+		echo "📊 System status:"; \
+		$(MAKE) status; \
+	else \
+		echo "Usage: make full-workflow PDF=data/input/sample.pdf"; \
+	fi
+
+# Enhanced status with decreto info
+.PHONY: status-extended
+status-extended: status
+	@echo ""
+	@echo "Decreto Monitoring Status:"
+	@echo "========================="
+	@$(MAKE) decreto-status
 
 # Make sure intermediate files are not deleted
 .PRECIOUS: %.py

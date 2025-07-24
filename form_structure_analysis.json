@@ -1,0 +1,304 @@
+{
+  "action": "index.php",
+  "method": "POST",
+  "fields": {
+    "unnamed_1": {
+      "type": "text",
+      "label": "Parola chiave",
+      "placeholder": "",
+      "default": ""
+    },
+    "unnamed_2": {
+      "type": "text",
+      "label": "Numero di Registro",
+      "placeholder": "",
+      "default": ""
+    },
+    "unnamed_3": {
+      "type": "text",
+      "label": "Soggetto Emanante o Amministratore Competente",
+      "placeholder": "",
+      "default": ""
+    },
+    "8877ea8e05085d5bf2a469b94f5c4ddf": {
+      "type": "text",
+      "label": "Risultati per pagina(5)",
+      "placeholder": "",
+      "default": ""
+    },
+    "date_1": {
+      "type": "date",
+      "label": "Data di Sottoscrizioneo Data Seduta di Giunta",
+      "default": ""
+    },
+    "date_2": {
+      "type": "date",
+      "label": "Data Pubblicazione su Web",
+      "default": ""
+    },
+    "number_1": {
+      "type": "number",
+      "label": "Estremi Pubblicazione Bollettino Ufficiale",
+      "default": ""
+    },
+    "chkSearchType": {
+      "type": "radio",
+      "options": [
+        {
+          "value": "0",
+          "label": "Tutte le parole",
+          "checked": false
+        },
+        {
+          "value": "1",
+          "label": "Almeno una parola",
+          "checked": true
+        },
+        {
+          "value": "2",
+          "label": "Frase esatta",
+          "checked": false
+        }
+      ]
+    },
+    "select_1": {
+      "type": "select",
+      "label": "Anno",
+      "options": [
+        {
+          "value": "",
+          "text": "",
+          "selected": false
+        },
+        {
+          "value": "2002",
+          "text": "2002",
+          "selected": false
+        },
+        {
+          "value": "2003",
+          "text": "2003",
+          "selected": false
+        },
+        {
+          "value": "2004",
+          "text": "2004",
+          "selected": false
+        },
+        {
+          "value": "2005",
+          "text": "2005",
+          "selected": false
+        },
+        {
+          "value": "2006",
+          "text": "2006",
+          "selected": false
+        },
+        {
+          "value": "2007",
+          "text": "2007",
+          "selected": false
+        },
+        {
+          "value": "2008",
+          "text": "2008",
+          "selected": false
+        },
+        {
+          "value": "2009",
+          "text": "2009",
+          "selected": false
+        },
+        {
+          "value": "2010",
+          "text": "2010",
+          "selected": false
+        },
+        {
+          "value": "2011",
+          "text": "2011",
+          "selected": false
+        },
+        {
+          "value": "2012",
+          "text": "2012",
+          "selected": false
+        },
+        {
+          "value": "2013",
+          "text": "2013",
+          "selected": false
+        },
+        {
+          "value": "2014",
+          "text": "2014",
+          "selected": false
+        },
+        {
+          "value": "2015",
+          "text": "2015",
+          "selected": false
+        },
+        {
+          "value": "2016",
+          "text": "2016",
+          "selected": false
+        },
+        {
+          "value": "2017",
+          "text": "2017",
+          "selected": false
+        },
+        {
+          "value": "2018",
+          "text": "2018",
+          "selected": false
+        },
+        {
+          "value": "2019",
+          "text": "2019",
+          "selected": false
+        },
+        {
+          "value": "2020",
+          "text": "2020",
+          "selected": false
+        }
+      ]
+    },
+    "select_2": {
+      "type": "select",
+      "label": "Tipo Atto",
+      "options": []
+    },
+    "select_3": {
+      "type": "select",
+      "label": "Anno:",
+      "options": [
+        {
+          "value": "",
+          "text": "",
+          "selected": false
+        },
+        {
+          "value": "2002",
+          "text": "2002",
+          "selected": false
+        },
+        {
+          "value": "2003",
+          "text": "2003",
+          "selected": false
+        },
+        {
+          "value": "2004",
+          "text": "2004",
+          "selected": false
+        },
+        {
+          "value": "2005",
+          "text": "2005",
+          "selected": false
+        },
+        {
+          "value": "2006",
+          "text": "2006",
+          "selected": false
+        },
+        {
+          "value": "2007",
+          "text": "2007",
+          "selected": false
+        },
+        {
+          "value": "2008",
+          "text": "2008",
+          "selected": false
+        },
+        {
+          "value": "2009",
+          "text": "2009",
+          "selected": false
+        },
+        {
+          "value": "2010",
+          "text": "2010",
+          "selected": false
+        },
+        {
+          "value": "2011",
+          "text": "2011",
+          "selected": false
+        },
+        {
+          "value": "2012",
+          "text": "2012",
+          "selected": false
+        },
+        {
+          "value": "2013",
+          "text": "2013",
+          "selected": false
+        },
+        {
+          "value": "2014",
+          "text": "2014",
+          "selected": false
+        },
+        {
+          "value": "2015",
+          "text": "2015",
+          "selected": false
+        },
+        {
+          "value": "2016",
+          "text": "2016",
+          "selected": false
+        },
+        {
+          "value": "2017",
+          "text": "2017",
+          "selected": false
+        },
+        {
+          "value": "2018",
+          "text": "2018",
+          "selected": false
+        },
+        {
+          "value": "2019",
+          "text": "2019",
+          "selected": false
+        },
+        {
+          "value": "2020",
+          "text": "2020",
+          "selected": false
+        }
+      ]
+    },
+    "select_4": {
+      "type": "select",
+      "label": "Area tematica",
+      "options": []
+    },
+    "select_5": {
+      "type": "select",
+      "label": "Argomento",
+      "options": []
+    },
+    "select_6": {
+      "type": "select",
+      "label": "Ordina per",
+      "options": [
+        {
+          "value": "ld:dataPubblicazioneRicercaWeb",
+          "text": "Data",
+          "selected": false
+        }
+      ]
+    }
+  },
+  "analysis_date": "2025-07-23"
+}

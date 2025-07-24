@@ -1,0 +1,763 @@
+{
+  "last_updated": "2025-07-24T11:04:45.322018",
+  "total_deliberations": 50,
+  "decreto_status": {
+    "DGR_1_3928": {
+      "deliberation_info": {
+        "numero": "1",
+        "oggetto": "Disposizioni di carattere fiscale e altre disposizioni di adeguamento normativo",
+        "data_seduta": "2025-07-03",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:03:18.301113",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_2_3928": {
+      "deliberation_info": {
+        "numero": "2",
+        "oggetto": "Presa d’atto del Bilancio di esercizio 2024, ai sensi della Legge Regionale 12 novembre 2014 n.33, dell’Azienda Pubblica di Servizi alla Persona “Istituto Domenico Trincheri” di Albenga (SV)",
+        "data_seduta": "2025-07-03",
+        "proponente": "BUCCI Marco, NICOLO' Massimo"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:03:24.389435",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_3_3928": {
+      "deliberation_info": {
+        "numero": "3",
+        "oggetto": "Presa d’atto dell’approvazione del Bilancio di esercizio 2024 ai sensi della Legge Regionale 12 novembre 2014 n.33 dell’Azienda Pubblica di Servizi alla Persona “Opere Sociali di Nostra Signora di Misericordia” di Savona (SV)",
+        "data_seduta": "2025-07-03",
+        "proponente": "BUCCI Marco, NICOLO' Massimo"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:03:30.594513",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_4_3928": {
+      "deliberation_info": {
+        "numero": "4",
+        "oggetto": "Rispetto dei vincoli di finanza pubblica in termini di equilibri di bilancio ai sensi del decreto legislativo 118/2011 ed in termini di contributi alla finanza File ODG_03/07/2025.pdf; versione 1. --- PAGE 2 --- pubblica. Applicazione delle disposizioni normative e ulteriori disposizioni per la gestione del bilancio di previsione 2025-2027.",
+        "data_seduta": "2025-07-03",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:03:36.647353",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_5_3928": {
+      "deliberation_info": {
+        "numero": "5",
+        "oggetto": "Variazione al bilancio di previsione 2025-2027 per utilizzo quota accantonata del risultato di amministrazione per \"Fondo rischi e spese legali\" ai sensi dell’art. 51 del d. lgs. n. 118/2011 – euro 55.223,41 (4° provvedimento).",
+        "data_seduta": "2025-07-03",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:03:42.694066",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_6_3928": {
+      "deliberation_info": {
+        "numero": "6",
+        "oggetto": "Concessione del patrocinio ed uso del logo della Regione Liguria ad iniziative varie.",
+        "data_seduta": "2025-07-03",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:03:48.698839",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_7_3928": {
+      "deliberation_info": {
+        "numero": "7",
+        "oggetto": "Destination Management Organization (DMO) – Approvazione requisiti strutturali minimi per il riconoscimento regionale",
+        "data_seduta": "2025-07-03",
+        "proponente": "LOMBARDI Luca"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:03:54.701834",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_8_3928": {
+      "deliberation_info": {
+        "numero": "8",
+        "oggetto": "Approvazione delle Linee di indirizzo per la protezione dei lavoratori dal calore e dalla radiazione solare",
+        "data_seduta": "2025-07-03",
+        "proponente": "NICOLO' Massimo"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:04:00.684940",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_9_3928": {
+      "deliberation_info": {
+        "numero": "9",
+        "oggetto": "Approvazione schema di Protocollo d’intesa per la prevenzione di situazioni di sfruttamento lavorativo nel territorio della provincia di Genova",
+        "data_seduta": "2025-07-03",
+        "proponente": "RIPAMONTI Paolo"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:04:06.831928",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_1_3929": {
+      "deliberation_info": {
+        "numero": "1",
+        "oggetto": "AZIENDA PUBBLICA DI SERVIZI ALLA PERSONA OPERE PIE RIUNITE DEVOTO MARINI SIVORI - CONSIGLIO DI AMMINISTRAZIONE - SCELTA RAPPRESENTANTE REGIONALE",
+        "data_seduta": "2025-07-10",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:04:12.847436",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_2_3929": {
+      "deliberation_info": {
+        "numero": "2",
+        "oggetto": "FONDAZIONE CASA DEI CANTAUTORI - CONSIGLIO DI INDIRIZZO - NOMINA RAPPRESENTANTE REGIONALE",
+        "data_seduta": "2025-07-10",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:04:18.863020",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_3_3929": {
+      "deliberation_info": {
+        "numero": "3",
+        "oggetto": "Azienda Pubblica dei Servizi alla Persona \"Opere Pie riunite Devoto Marini Sivori” di Lavagna - Nomina Revisore unico",
+        "data_seduta": "2025-07-10",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:04:24.829572",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_4_3929": {
+      "deliberation_info": {
+        "numero": "4",
+        "oggetto": "Azienda Pubblica dei Servizi alla Persona “Pii Istituti Riuniti di S. Margherita ligure” - Nomina Revisore unico",
+        "data_seduta": "2025-07-10",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:04:30.824499",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_5_3929": {
+      "deliberation_info": {
+        "numero": "5",
+        "oggetto": "AZIENDA PUBBLICA DI SERVIZI ALLA PERSONA \"EMANUELE BRIGNOLE\" - RINNOVO COMMISSARIO STRAORDINARIO.",
+        "data_seduta": "2025-07-10",
+        "proponente": "BUCCI Marco, NICOLO' Massimo"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:04:36.929464",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_6_3929": {
+      "deliberation_info": {
+        "numero": "6",
+        "oggetto": "Bilancio economico di previsione 2025 dell’Ospedale Policlinico San Martino di cui alla deliberazione del Direttore Generale n. 763 del 29/04/2025. Determinazioni conseguenti.",
+        "data_seduta": "2025-07-10",
+        "proponente": "BUCCI Marco, NICOLO' Massimo"
+      },
+      "decreto_publication": {
+        "status": "not_found",
+        "last_check": "2025-07-24T11:04:43.318178",
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_7_3929": {
+      "deliberation_info": {
+        "numero": "7",
+        "oggetto": "Approvazione dello schema di Protocollo d’Intesa tra Regione Liguria e A.N.C.I. Liguria per lo svolgimento in collaborazione di attività nelle materie di interesse regionale",
+        "data_seduta": "2025-07-10",
+        "proponente": "BUCCI Marco, PIANA Alessandro"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_8_3929": {
+      "deliberation_info": {
+        "numero": "8",
+        "oggetto": "Approvazione del Bilancio di esercizio 2024 dell’Agenzia Regionale per la Protezione dell’Ambiente Ligure - A.R.P.A.L di cui al Decreto n. 11 del 30/04/2024 del Direttore Generale dell’Agenzia.",
+        "data_seduta": "2025-07-10",
+        "proponente": "BUCCI Marco, GIAMPEDRONE Giacomo Raul,"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_10_3929": {
+      "deliberation_info": {
+        "numero": "10",
+        "oggetto": "Presa d’atto dell’approvazione del Bilancio di esercizio 2024, ai sensi della Legge Regionale 12 novembre 2014 n.33, dell’Azienda Pubblica di Servizi alla Persona “Casa di Riposo e Pensionato Imperia” di Imperia (IM)",
+        "data_seduta": "2025-07-10",
+        "proponente": "BUCCI Marco, NICOLO' Massimo"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_11_3929": {
+      "deliberation_info": {
+        "numero": "11",
+        "oggetto": "L.R. 1/2007. INDIRIZZI E LINEE GUIDA PER LA CONCESSIONE DEI SOSTEGNI ECONOMICI FINALIZZATI ALLA RIQUALIFICAZIONE DELLE AREE A RISCHIO DI TENUTA DELLA RETE DISTRIBUTIVA E AL SOSTEGNO DEI CENTRI INTEGRATI DI VIA.",
+        "data_seduta": "2025-07-10",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_12_3929": {
+      "deliberation_info": {
+        "numero": "12",
+        "oggetto": "Autorizzazione al prelievo in deroga, ai sensi dell’art. 9, comma 1, lett. c) della Direttiva 2009/147/CE e dell’art. 19-bis della legge 157/92 delle specie Fringuello (Fringilla coelebs) e Storno (Sturnus vulgaris) - anno 2025.",
+        "data_seduta": "2025-07-10",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_13_3929": {
+      "deliberation_info": {
+        "numero": "13",
+        "oggetto": "Emendamenti al disegno di legge regionale n. 8/66/2025 “Rendiconto Generale dell’Amministrazione della Regione Liguria per l’esercizio 2024”",
+        "data_seduta": "2025-07-10",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_14_3929": {
+      "deliberation_info": {
+        "numero": "14",
+        "oggetto": "Concessione del patrocinio ed uso del logo della Regione Liguria ad iniziative varie",
+        "data_seduta": "2025-07-10",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_15_3929": {
+      "deliberation_info": {
+        "numero": "15",
+        "oggetto": "Contributi alle Unioni di Comuni. Approvazione bando per l’anno 2025. Criteri e requisiti per la ripartizione delle risorse vincolate – Prenotazione impegno euro 108.869,07",
+        "data_seduta": "2025-07-10",
+        "proponente": "PIANA Alessandro"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_16_3929": {
+      "deliberation_info": {
+        "numero": "16",
+        "oggetto": "L.r. 40/09 art. 29. Attività concertativa e di collaborazione in materia di sport. Protocollo di intesa Regione Liguria e Università di Genova.",
+        "data_seduta": "2025-07-10",
+        "proponente": "FERRO Simona"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_17_3929": {
+      "deliberation_info": {
+        "numero": "17",
+        "oggetto": "Approvazione criteri di programmazione Sistema di Istruzione e Formazione Professionale (IeFP), Triennali ordinari e Duale. (Prenotazione risorse euro 17.640.305,32).",
+        "data_seduta": "2025-07-10",
+        "proponente": "FERRO Simona, SCAJOLA Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_18_3929": {
+      "deliberation_info": {
+        "numero": "18",
+        "oggetto": "Approvazione del “Piano triennale per l’attuazione di interventi a favore delle persone con disabilità (2025-2027)” finanziato a valere sul Fondo regionale File ODG_10/07/2025.pdf; versione 1. --- PAGE 5 --- per l’Occupazione delle persone con disabilità (ex art. 14 della Legge 68/99) e sul Fondo per il diritto al lavoro dei disabili (ex art. 13 della l.68/99).",
+        "data_seduta": "2025-07-10",
+        "proponente": "FERRO Simona"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_19_3929": {
+      "deliberation_info": {
+        "numero": "19",
+        "oggetto": "L.r. n. 20/2006 art. 27, c.1. Approvazione del Programma triennale dei controlli e dei monitoraggi ambientali di ARPAL 2025-2027.",
+        "data_seduta": "2025-07-10",
+        "proponente": "GIAMPEDRONE Giacomo Raul"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_20_3929": {
+      "deliberation_info": {
+        "numero": "20",
+        "oggetto": "L.r. n. 13/2023, Art. 1, commi 10, 11, 66 – Termini per la conclusione della procedura finalizzata nomina del Direttore dell’Agenzia regionale ligure per i rifiuti",
+        "data_seduta": "2025-07-10",
+        "proponente": "GIAMPEDRONE Giacomo Raul"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_21_3929": {
+      "deliberation_info": {
+        "numero": "21",
+        "oggetto": "Investimento PNRR M6-C1-1.2.3.2 “Servizi per la telemedicina” – Soggetti attuatori delegati (A.Li.Sa., Aziende/Enti del SSR). Approvazione schema di Accordo con Regione Puglia, schema di delega alle Aziende/Enti del SSR e riparto risorse DM Salute 28/09/2023.",
+        "data_seduta": "2025-07-10",
+        "proponente": "NICOLO' Massimo"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_22_3929": {
+      "deliberation_info": {
+        "numero": "22",
+        "oggetto": "APPROVAZIONE INIZIATIVA REGIONALE DENOMINATA “BONUS BADANTI 6° EDIZIONE E BONUS BABY SITTER 5° EDIZIONE” A VALERE SU PR FSE+ 2021/2027 PRIORITA' 1 OCCUPAZIONE OBIETTIVO SPECIFICO ESO4.3 E PRIORITA’ 3 INCLUSIONE SOCIALE OBIETTIVO SPECIFICO 4.11 PRENOTAZIONE DI EURO 6.000.000,00.",
+        "data_seduta": "2025-07-10",
+        "proponente": "FERRO Simona, NICOLO' Massimo, SCAJOLA Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_23_3929": {
+      "deliberation_info": {
+        "numero": "23",
+        "oggetto": "Recepimento Intesa Rep. atti n. 52/CSR del 17 aprile 2025 e approvazione del documento “Azioni Prioritarie e Obiettivi trainanti PRCAR 2023- 2025 Liguria”.",
+        "data_seduta": "2025-07-10",
+        "proponente": "NICOLO' Massimo"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_1_3930": {
+      "deliberation_info": {
+        "numero": "1",
+        "oggetto": "FI.L.S.E. S.p.A.: Progetto di bilancio dell'esercizio 2024 - Indirizzi per il rappresentante della Regione all'Assemblea di Coordinamento dei soci / Assemblea dei soci. del 22 luglio 2025.",
+        "data_seduta": "2025-07-17",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_2_3930": {
+      "deliberation_info": {
+        "numero": "2",
+        "oggetto": "Relazione previsionale per l'anno 2025 della Finanziaria Ligure per lo Sviluppo Economico - FI.L.S.E. S.p.A. - Indirizzi al rappresentante regionale all'Assemblea di Coordinamento dei Soci ed all'Assemblea dei Soci.",
+        "data_seduta": "2025-07-17",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_3_3930": {
+      "deliberation_info": {
+        "numero": "3",
+        "oggetto": "Riconoscimento di debiti fuori bilancio derivanti da sentenze esecutive. Impegno euro 45.415,80",
+        "data_seduta": "2025-07-17",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_5_3930": {
+      "deliberation_info": {
+        "numero": "5",
+        "oggetto": "Corte costituzionale. Questione di legittimità costituzionale dell’art. 26, comma 1, lett. a) della L.R. n. 20 del 2006 sollevata dalla Corte dei conti – Sezioni riunite in speciale composizione – con ordinanza n. 8/2025. Costituzione in giudizio.",
+        "data_seduta": "2025-07-17",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_6_3930": {
+      "deliberation_info": {
+        "numero": "6",
+        "oggetto": "Riconoscimento di debiti fuori bilancio derivanti da sentenze esecutive. Impegno euro 9.807,61.",
+        "data_seduta": "2025-07-17",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_7_3930": {
+      "deliberation_info": {
+        "numero": "7",
+        "oggetto": "Approvazione Bilancio di esercizio 2024 di cui al Decreto del Direttore Generale n. 125 del 26/04/2025 dell'Agenzia Ligure per gli Studenti e l'Orientamento – ALISEO",
+        "data_seduta": "2025-07-17",
+        "proponente": "BUCCI Marco, FERRO Simona"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_8_3930": {
+      "deliberation_info": {
+        "numero": "8",
+        "oggetto": "Approvazione del budget economico annuale 2025 e del budget economico triennale 2025-2027 dell’Azienda Regionale Territoriale per l’Edilizia (A.R.T.E.) della Provincia di Savona, approvati con decreto n.148 adottato in data 11/06/2025 dall’Amministratore Unico dell’Azienda",
+        "data_seduta": "2025-07-17",
+        "proponente": "BUCCI Marco, SCAJOLA Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_9_3930": {
+      "deliberation_info": {
+        "numero": "9",
+        "oggetto": "Approvazione del Bilancio di esercizio 2024 di cui al Decreto n. 931 del 22/04/2025 del Direttore Generale dell’Agenzia Regionale per il Lavoro, la Formazione e l'Accreditamento - A.L.F.A.",
+        "data_seduta": "2025-07-17",
+        "proponente": "BUCCI Marco, FERRO Simona"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_10_3930": {
+      "deliberation_info": {
+        "numero": "10",
+        "oggetto": "EMENDAMENTI AL DISEGNO DI LEGGE N.10/70/2025 (ASSESTAMENTO AL BILANCIO DI PREVISIONE DELLA REGIONE LIGURIA PER GLI ANNI FINANZIARI 2025-2027 E II VARIAZIONE).",
+        "data_seduta": "2025-07-17",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_11_3930": {
+      "deliberation_info": {
+        "numero": "11",
+        "oggetto": "Determinazioni conseguenti alla decisione di parificazione del rendiconto per l’esercizio 2024 del 17/07/2025 da parte della Sezione Regionale di Controllo della Corte dei Conti",
+        "data_seduta": "2025-07-17",
+        "proponente": "BUCCI Marco"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_12_3930": {
+      "deliberation_info": {
+        "numero": "12",
+        "oggetto": "Programma regionale di Sviluppo Rurale per il periodo 2014-2022. Adozione di talune modifiche secondo e procedure di cui all’art. 6 punto 1bis l.r. 44/1995 e ss.mm.ii.",
+        "data_seduta": "2025-07-17",
+        "proponente": "PIANA Alessandro"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_14_3930": {
+      "deliberation_info": {
+        "numero": "14",
+        "oggetto": "Approvazione, ai sensi e per gli effetti dell’articolo 5, c.4 della legge regionale n. 4/2022 del Piano integrato di attività e organizzazione 2025-2027 dell'Agenzia Regionale ligure per i rifiuti - ARLIR",
+        "data_seduta": "2025-07-17",
+        "proponente": "GIAMPEDRONE Giacomo Raul"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_15_3930": {
+      "deliberation_info": {
+        "numero": "15",
+        "oggetto": "D.G.R. n. 925/2022. Approvazione del Piano integrato di attività e organizzazione PIAO 2025-2027. Annualità 2025 di ARPAL ex decreto del Commissario Straordinario n. 24 del 13/02/2025",
+        "data_seduta": "2025-07-17",
+        "proponente": "GIAMPEDRONE Giacomo Raul"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_16_3930": {
+      "deliberation_info": {
+        "numero": "16",
+        "oggetto": "Approvazione schemi di Protocollo di intesa tra Regione Liguria, Regione Campania e i Comuni di Cercola e Marano di Napoli, per rendere operativi i gemellaggi di cui alla Direttiva del Presidente del Consiglio dei Ministri del 14.02.2014 c.d. Direttiva Rischio Vesuvio ed al DPCM 24/06/2016 c.d. Decreto Rischio Campi Flegrei.",
+        "data_seduta": "2025-07-17",
+        "proponente": "GIAMPEDRONE Giacomo Raul"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_17_3930": {
+      "deliberation_info": {
+        "numero": "17",
+        "oggetto": "Approvazione del Protocollo di Intesa relativo alle Indicazioni per la prevenzione e protezione dai rischi correlati alle condizioni di microclima negli ambienti di lavoro per la provincia di Genova File ODG_17/07/2025.pdf; versione 1. --- PAGE 5 ---",
+        "data_seduta": "2025-07-17",
+        "proponente": "NICOLO' Massimo"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_18_3930": {
+      "deliberation_info": {
+        "numero": "18",
+        "oggetto": "Ridestinazione dei fondi di cui al punto a) della DGR 961/2022 fino ad un massimo di euro 200.000,00, ad implementazione del punto b) della stessa per coprire il servizio svolto da RTI ECOVER srl – G.P in Liguria a seguito della gara n 9034463 lotto unico, affidata da Regione Liguria, per le zone I e II di restrizione PSA di recupero, trasporto, stoccaggio temporaneo e smaltimento di carcasse di cinghiale.",
+        "data_seduta": "2025-07-17",
+        "proponente": "NICOLO' Massimo"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_19_3930": {
+      "deliberation_info": {
+        "numero": "19",
+        "oggetto": "Approvazione Programma attuativo degli interventi regionali in materia di emigrazione per l'anno 2025 ai sensi dell'articolo 4, comma 3, della legge regionale 6 febbraio 2020, n. 3 (Disciplina degli interventi per favorire la diffusione delle tradizioni liguri nel mondo e a sostegno dei liguri emigrati). Prenotazione risorse per euro 140.000,00",
+        "data_seduta": "2025-07-17",
+        "proponente": "RIPAMONTI Paolo"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_20_3930": {
+      "deliberation_info": {
+        "numero": "20",
+        "oggetto": "Partecipazione di Regione Liguria al bando 7/2025 emanato dalla Presidenza del Consiglio dei ministri – Dipartimento per le Pari Opportunità per il finanziamento di progetti a sostegno di soggetti vittime di tratta e grave sfruttamento",
+        "data_seduta": "2025-07-17",
+        "proponente": "FERRO Simona, RIPAMONTI Paolo"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    },
+    "DGR_21_3930": {
+      "deliberation_info": {
+        "numero": "21",
+        "oggetto": "Linee di indirizzo alla delegazione trattante di parte datoriale per la contrattazione collettiva integrativa relativa al personale della Dirigenza e al personale del Comparto",
+        "data_seduta": "2025-07-17",
+        "proponente": "RIPAMONTI Paolo"
+      },
+      "decreto_publication": {
+        "status": "not_checked",
+        "last_check": null,
+        "publication_url": null,
+        "verification_notes": null
+      },
+      "search_history": []
+    }
+  },
+  "verification_history": [],
+  "configuration": {
+    "decreto_scraping_enabled": true,
+    "batch_size": 10,
+    "verification_interval_days": 7,
+    "notification_threshold": 5
+  }
+}

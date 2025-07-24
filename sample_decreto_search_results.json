@@ -1,0 +1,192 @@
+{
+  "total_tested": 5,
+  "found": 5,
+  "not_found": 0,
+  "detailed_results": [
+    {
+      "deliberation": {
+        "numero": "1",
+        "oggetto": "Disposizioni di carattere fiscale e altr",
+        "proponente": "BUCCI Marco",
+        "data_seduta": "2025-07-03"
+      },
+      "strategies_tested": [
+        {
+          "success": true,
+          "strategy": {
+            "term": "DGR 1",
+            "search_type": "2",
+            "description": "Exact \"DGR 1\""
+          },
+          "indicators_found": [
+            "giunta"
+          ],
+          "decreto_links": [],
+          "content_preview": "No specific content preview available"
+        }
+      ],
+      "found": true,
+      "best_match": {
+        "success": true,
+        "strategy": {
+          "term": "DGR 1",
+          "search_type": "2",
+          "description": "Exact \"DGR 1\""
+        },
+        "indicators_found": [
+          "giunta"
+        ],
+        "decreto_links": [],
+        "content_preview": "No specific content preview available"
+      }
+    },
+    {
+      "deliberation": {
+        "numero": "2",
+        "oggetto": "FONDAZIONE CASA DEI CANTAUTORI - CONSIGL",
+        "proponente": "BUCCI Marco",
+        "data_seduta": "2025-07-10"
+      },
+      "strategies_tested": [
+        {
+          "success": true,
+          "strategy": {
+            "term": "DGR 2",
+            "search_type": "2",
+            "description": "Exact \"DGR 2\""
+          },
+          "indicators_found": [
+            "giunta"
+          ],
+          "decreto_links": [],
+          "content_preview": "No specific content preview available"
+        }
+      ],
+      "found": true,
+      "best_match": {
+        "success": true,
+        "strategy": {
+          "term": "DGR 2",
+          "search_type": "2",
+          "description": "Exact \"DGR 2\""
+        },
+        "indicators_found": [
+          "giunta"
+        ],
+        "decreto_links": [],
+        "content_preview": "No specific content preview available"
+      }
+    },
+    {
+      "deliberation": {
+        "numero": "13",
+        "oggetto": "Emendamenti al disegno di legge regional",
+        "proponente": "BUCCI Marco",
+        "data_seduta": "2025-07-10"
+      },
+      "strategies_tested": [
+        {
+          "success": true,
+          "strategy": {
+            "term": "DGR 13",
+            "search_type": "2",
+            "description": "Exact \"DGR 13\""
+          },
+          "indicators_found": [
+            "giunta"
+          ],
+          "decreto_links": [],
+          "content_preview": "No specific content preview available"
+        }
+      ],
+      "found": true,
+      "best_match": {
+        "success": true,
+        "strategy": {
+          "term": "DGR 13",
+          "search_type": "2",
+          "description": "Exact \"DGR 13\""
+        },
+        "indicators_found": [
+          "giunta"
+        ],
+        "decreto_links": [],
+        "content_preview": "No specific content preview available"
+      }
+    },
+    {
+      "deliberation": {
+        "numero": "23",
+        "oggetto": "Recepimento Intesa Rep. atti n. 52/CSR d",
+        "proponente": "NICOLO' Massimo",
+        "data_seduta": "2025-07-10"
+      },
+      "strategies_tested": [
+        {
+          "success": true,
+          "strategy": {
+            "term": "DGR 23",
+            "search_type": "2",
+            "description": "Exact \"DGR 23\""
+          },
+          "indicators_found": [
+            "giunta"
+          ],
+          "decreto_links": [],
+          "content_preview": "No specific content preview available"
+        }
+      ],
+      "found": true,
+      "best_match": {
+        "success": true,
+        "strategy": {
+          "term": "DGR 23",
+          "search_type": "2",
+          "description": "Exact \"DGR 23\""
+        },
+        "indicators_found": [
+          "giunta"
+        ],
+        "decreto_links": [],
+        "content_preview": "No specific content preview available"
+      }
+    },
+    {
+      "deliberation": {
+        "numero": "11",
+        "oggetto": "Determinazioni conseguenti alla decision",
+        "proponente": "BUCCI Marco",
+        "data_seduta": "2025-07-17"
+      },
+      "strategies_tested": [
+        {
+          "success": true,
+          "strategy": {
+            "term": "DGR 11",
+            "search_type": "2",
+            "description": "Exact \"DGR 11\""
+          },
+          "indicators_found": [
+            "giunta"
+          ],
+          "decreto_links": [],
+          "content_preview": "No specific content preview available"
+        }
+      ],
+      "found": true,
+      "best_match": {
+        "success": true,
+        "strategy": {
+          "term": "DGR 11",
+          "search_type": "2",
+          "description": "Exact \"DGR 11\""
+        },
+        "indicators_found": [
+          "giunta"
+        ],
+        "decreto_links": [],
+        "content_preview": "No specific content preview available"
+      }
+    }
+  ]
+}
