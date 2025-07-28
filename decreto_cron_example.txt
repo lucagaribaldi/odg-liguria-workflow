@@ -1,5 +1,0 @@
-# Decreto monitoring - runs every 6 hours
-# 0 */6 * * * cd /Users/luca/odg-liguria-workflow && python3 decreto_auto_monitor.py >> decreto_monitor.log 2>&1
-
-# Daily summary at 8 AM
-# 0 8 * * * cd /Users/luca/odg-liguria-workflow && python3 decreto_auto_monitor.py summary >> decreto_monitor.log 2>&1

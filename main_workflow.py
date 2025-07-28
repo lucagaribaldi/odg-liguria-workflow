@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 from pdf_parser import ODGPDFParser
 from notion_integrator import NotionIntegrator
-from decreto_scraper import DecretoScraper
+from decreto_scraper import DecretoScraper, LogLevel
 from ai_synthesizer import AISynthesizer
 
 def setup_logging(debug: bool = False) -> logging.Logger:
@@ -69,10 +69,17 @@ class ODGWorkflow:
         else:
             self.logger.warning("Notion credentials not found - will skip Notion sync")
         
-        # Initialize decreto scraper if not skipping
+        # Initialize enhanced decreto scraper if not skipping
         if not skip_scraping:
-            self.decreto_scraper = DecretoScraper(verify_ssl=False)
-            self.logger.info("Decreto scraper initialized")
+            self.decreto_scraper = DecretoScraper(
+                debug_mode=True,
+                log_level=LogLevel.INFO,
+                log_file=f"logs/decreto_scraper_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log",
+                enable_performance_tracking=True,
+                verify_ssl=False,
+                rate_limit=1.0
+            )
+            self.logger.info("Enhanced decreto scraper initialized")
         
         # Stats tracking
         self.session_stats = {
@@ -85,7 +92,10 @@ class ODGWorkflow:
             "notion_errors": 0,
             "decreti_found": 0,
             "decreti_not_found": 0,
-            "scraping_errors": 0
+            "scraping_errors": 0,
+            "validation_applied": 0,
+            "sanitization_applied": 0,
+            "validation_errors": 0
         }
     
     def process_pdf(self, pdf_path: Path) -> Dict[str, Any]:
@@ -160,8 +170,13 @@ class ODGWorkflow:
                     result["steps"]["decreto_scraping"] = {"success": True, "results": scraping_results}
                     
                     found_count = len([r for r in scraping_results if r.get("found")])
+                    validated_count = len([r for r in scraping_results if r.get("validation_applied")])
+                    sanitized_count = len([r for r in scraping_results if r.get("validation_applied", {}).get("seduta_sanitized") or r.get("validation_applied", {}).get("numero_sanitized")])
+                    
                     self.session_stats["decreti_found"] += found_count
                     self.session_stats["decreti_not_found"] += len(scraping_results) - found_count
+                    self.session_stats["validation_applied"] += validated_count
+                    self.session_stats["sanitization_applied"] += sanitized_count
                     
                     self.logger.info(f"Decreto scraping completed: {found_count}/{len(scraping_results)} found")
             else:
@@ -187,8 +202,10 @@ class ODGWorkflow:
             return result
     
     def _scrape_decreti(self, deliberations: List[Dict], session_info: Dict) -> List[Dict]:
-        """Scrape decreto publication status for all deliberations."""
+        """Scrape decreto publication status for all deliberations using enhanced validation."""
         scraping_results = []
+        
+        self.logger.info(f"Starting enhanced decreto scraping for {len(deliberations)} deliberations")
         
         for i, deliberation in enumerate(deliberations, 1):
             try:
@@ -209,32 +226,82 @@ class ODGWorkflow:
                     })
                     continue
                 
-                # Scrape decreto
+                # Enhanced input validation and sanitization
+                try:
+                    validated_seduta = self.decreto_scraper.validate_and_sanitize_input(
+                        str(seduta), "seduta", for_regex=True, max_length=50
+                    )
+                    validated_numero = self.decreto_scraper.validate_and_sanitize_input(
+                        str(numero), "numero", for_regex=True, max_length=50
+                    )
+                    validated_oggetto = self.decreto_scraper.validate_and_sanitize_input(
+                        oggetto, "oggetto", for_regex=False, max_length=1000
+                    )
+                    
+                    # Log if sanitization was applied
+                    if validated_seduta != str(seduta):
+                        self.logger.info(f"   🔧 Seduta sanitized: '{seduta}' -> '{validated_seduta}'")
+                    if validated_numero != str(numero):
+                        self.logger.info(f"   🔧 Numero sanitized: '{numero}' -> '{validated_numero}'")
+                    
+                except Exception as validation_error:
+                    self.logger.error(f"   ❌ Validation failed for decreto {numero}: {validation_error}")
+                    scraping_results.append({
+                        "deliberation_numero": numero,
+                        "deliberation_seduta": seduta,
+                        "found": False,
+                        "error": f"Validation error: {validation_error}"
+                    })
+                    self.session_stats["validation_errors"] += 1
+                    self.session_stats["scraping_errors"] += 1
+                    continue
+                
+                # Scrape decreto with validated inputs
                 decreto_result = self.decreto_scraper.verify_decreto_publication(
-                    seduta=str(seduta),
-                    numero=str(numero),
-                    oggetto=oggetto,
+                    seduta=validated_seduta,
+                    numero=validated_numero,
+                    oggetto=validated_oggetto,
                     data_seduta=data_seduta
                 )
                 
                 # Add deliberation info to result
                 decreto_result["deliberation_numero"] = numero
                 decreto_result["deliberation_seduta"] = seduta
+                decreto_result["validation_applied"] = {
+                    "seduta_sanitized": validated_seduta != str(seduta),
+                    "numero_sanitized": validated_numero != str(numero)
+                }
                 scraping_results.append(decreto_result)
                 
                 if decreto_result.get("found"):
-                    self.logger.info(f"✅ Decreto {numero} found: {decreto_result.get('url', 'N/A')}")
+                    self.logger.info(f"   ✅ Decreto {numero} found: {decreto_result.get('url', 'N/A')}")
                 else:
-                    self.logger.info(f"❌ Decreto {numero} not found")
+                    self.logger.info(f"   ❌ Decreto {numero} not found")
                 
             except Exception as e:
                 self.logger.error(f"Error scraping decreto {deliberation.get('numero', 'N/A')}: {str(e)}")
                 scraping_results.append({
                     "deliberation_numero": deliberation.get("numero"),
+                    "deliberation_seduta": deliberation.get("seduta"),
                     "found": False,
                     "error": str(e)
                 })
                 self.session_stats["scraping_errors"] += 1
+        
+        # Log enhanced scraping summary
+        if hasattr(self.decreto_scraper, 'get_error_reports'):
+            error_reports = self.decreto_scraper.get_error_reports()
+            if error_reports:
+                self.logger.info(f"📊 Enhanced scraping completed with {len(error_reports)} error reports generated")
+            
+            # Save debug report if available
+            try:
+                debug_file = self.decreto_scraper.save_debug_report(
+                    f"logs/decreto_scraping_debug_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+                )
+                self.logger.info(f"💾 Decreto scraping debug report saved: {debug_file}")
+            except Exception as debug_error:
+                self.logger.warning(f"Could not save debug report: {debug_error}")
         
         return scraping_results
     
@@ -348,6 +415,12 @@ def main():
                 print(f"🔍 Decreti found: {stats['decreti_found']}")
                 print(f"❓ Decreti not found: {stats['decreti_not_found']}")
                 print(f"🚫 Scraping errors: {stats['scraping_errors']}")
+                if stats.get('validation_applied', 0) > 0:
+                    print(f"🛡️ Enhanced validation applied: {stats['validation_applied']}")
+                if stats.get('sanitization_applied', 0) > 0:
+                    print(f"🔧 Input sanitization applied: {stats['sanitization_applied']}")
+                if stats.get('validation_errors', 0) > 0:
+                    print(f"⚠️ Validation errors caught: {stats['validation_errors']}")
             
             print()
             
@@ -372,7 +445,13 @@ def main():
                     decreto_results = result["steps"]["decreto_scraping"].get("results", [])
                     if decreto_results:
                         found = len([r for r in decreto_results if r.get("found")])
+                        validated = len([r for r in decreto_results if r.get("validation_applied")])
+                        sanitized = len([r for r in decreto_results if r.get("validation_applied", {}).get("seduta_sanitized") or r.get("validation_applied", {}).get("numero_sanitized")])
                         print(f"   - Decreti: {found}/{len(decreto_results)} found")
+                        if validated > 0:
+                            print(f"   - Enhanced validation: {validated} deliberations processed")
+                        if sanitized > 0:
+                            print(f"   - Input sanitization: {sanitized} deliberations sanitized")
                     
                 else:
                     print(f"❌ {result['pdf_name']}: {result.get('error', 'Unknown error')}")

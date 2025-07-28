@@ -1,0 +1,255 @@
+# ODG Liguria Workflow - Enhanced Production Configuration
+# This file contains all configurable settings for the enhanced workflow with decreto scraper
+
+# Application Settings
+app:
+  name: "ODG Liguria Enhanced Workflow"
+  version: "2.0.0"
+  environment: "production"  # development, staging, production
+  debug: false
+
+# Enhanced Decreto Scraper Configuration
+decreto_scraper:
+  # Debug and logging settings
+  debug_mode: false                 # Set to true for development/troubleshooting
+  log_level: "INFO"                # SILENT, ERROR, WARN, INFO, DEBUG, TRACE
+  log_file: "logs/decreto_scraper_production.log"
+  
+  # Performance and reliability settings
+  enable_performance_tracking: true  # Track operation performance metrics
+  verify_ssl: true                  # SSL verification for production
+  rate_limit: 2.0                   # Seconds between requests (be respectful)
+  max_retries: 3                    # Maximum retry attempts for failed requests
+  timeout: 30                       # Request timeout in seconds
+  
+  # Validation settings
+  validation:
+    strict_mode: true               # Enable strict input validation
+    sanitize_regex: true            # Automatically sanitize regex metacharacters
+    max_field_lengths:
+      seduta: 50                    # Maximum length for seduta field
+      numero: 50                    # Maximum length for numero field
+      oggetto: 1000                 # Maximum length for oggetto field
+  
+  # Search configuration
+  search:
+    strategies: 4                   # Number of search strategies to try
+    date_range_days: 30             # Days to search around session date
+    base_url: "https://decretidigitali.regione.liguria.it"
+
+# Workflow Orchestrator Configuration  
+workflow:
+  # Processing settings
+  batch_size: 10                    # Number of deliberations to process in batch
+  enable_ai_synthesis: false        # Enable AI-powered text synthesis
+  enable_backup: true               # Create backups of processed data
+  
+  # Error handling
+  max_errors_per_session: 5         # Stop processing after this many errors
+  continue_on_validation_errors: true # Continue processing despite validation errors
+  
+  # Output settings
+  save_debug_reports: true          # Save comprehensive debug reports
+  backup_directory: "data/backups"  # Directory for backup files
+  log_directory: "logs"             # Directory for log files
+
+# Notion Integration Configuration
+notion:
+  # Sync settings
+  enable_anti_duplicate: true       # Enable duplicate detection
+  sync_direction: "TO_NOTION"       # TO_NOTION, FROM_NOTION, BIDIRECTIONAL
+  batch_sync_size: 25               # Number of items to sync in one batch
+  
+  # Field mappings - Notion property names
+  field_mappings:
+    seduta: "Seduta"
+    numero: "Numero" 
+    oggetto: "Oggetto"
+    data_seduta: "Data_Seduta"
+    pubblicato: "Pubblicato"
+    url_decreto: "URL_Decreto"
+    proponente: "Proponente"
+    data_pubblicazione: "Data_Pubblicazione"
+    dgr_numero: "DGR_Numero"
+    dgr_anno: "DGR_Anno"
+
+# PDF Parser Configuration
+pdf_parser:
+  # Processing settings
+  extract_session_info: true        # Extract session metadata from PDF
+  clean_extracted_text: true        # Clean and normalize extracted text
+  
+  # Text processing
+  min_deliberation_length: 20       # Minimum characters for valid deliberation
+  max_deliberation_length: 5000     # Maximum characters for deliberation text
+
+# Enhanced Logging Configuration  
+logging:
+  # Global logging settings
+  level: "INFO"                     # Global log level
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # File rotation
+  rotate_logs: true                 # Enable log rotation
+  max_log_size: "10MB"              # Maximum size before rotation
+  backup_count: 5                   # Number of rotated logs to keep
+  
+  # Console output
+  console_output: true              # Enable console logging
+  console_level: "INFO"             # Console log level (can be different from file)
+  
+  # Component-specific logging
+  components:
+    decreto_scraper:
+      level: "INFO"
+      file: "logs/decreto_scraper.log"
+    notion_integrator:
+      level: "INFO"
+      file: "logs/notion_integrator.log"
+    workflow_orchestrator:
+      level: "INFO"
+      file: "logs/workflow_orchestrator.log"
+
+# Security Configuration
+security:
+  # Input validation
+  strict_validation: true           # Enable strict input validation
+  sanitize_regex_inputs: true       # Automatically sanitize regex metacharacters
+  validate_urls: true               # Validate URLs before making requests
+  
+  # Network security
+  verify_ssl_certificates: true     # Verify SSL certificates in production
+  allowed_domains:                  # Whitelist of allowed domains for requests
+    - "decretidigitali.regione.liguria.it"
+    - "api.notion.com"
+  
+  # Data protection
+  mask_sensitive_data: true         # Mask sensitive data in logs
+  encrypt_backups: false            # Enable backup encryption (requires key setup)
+
+# Monitoring and Metrics
+monitoring:
+  # Performance monitoring
+  enable_metrics: true              # Collect performance metrics
+  metrics_retention_days: 30        # Days to retain metrics data
+  
+  # Health checks
+  enable_health_checks: true        # Enable component health monitoring
+  health_check_interval: 300        # Health check interval in seconds
+  
+  # Error tracking
+  error_reporting:
+    enable: true                    # Enable error report generation
+    max_reports_per_session: 10     # Maximum error reports per session
+    save_to_file: true              # Save error reports to file
+    
+  # Performance tracking
+  performance_tracking:
+    enable: true                    # Enable performance tracking
+    track_operations: true          # Track individual operations
+    save_stats: true                # Save performance statistics
+
+# File Processing
+file_processing:
+  input_dir: "data/input"
+  output_dir: "data/output"
+  backup_dir: "data/backups"
+  temp_dir: "temp"
+  
+  # Document processing settings
+  document:
+    extract_text: true
+    extract_metadata: true
+    validate_format: true
+
+# Development and Testing
+development:
+  # Development settings (ignored in production)
+  mock_decreto_responses: false     # Use mock responses for testing
+  skip_network_requests: false      # Skip actual network requests
+  test_data_directory: "test_data"  # Directory for test data files
+  
+  # Debug features
+  save_raw_responses: false         # Save raw HTTP responses for debugging
+  enable_request_tracing: false     # Enable detailed request tracing
+  validate_test_data: true          # Validate test data integrity
+
+# Environment-specific overrides
+environments:
+  production:
+    app:
+      debug: false
+    decreto_scraper:
+      debug_mode: false
+      log_level: "WARN"
+      rate_limit: 2.0
+      verify_ssl: true
+    security:
+      verify_ssl_certificates: true
+      strict_validation: true
+    development:
+      mock_decreto_responses: false
+      skip_network_requests: false
+  
+  development:
+    app:
+      debug: true
+    decreto_scraper:
+      debug_mode: true
+      log_level: "DEBUG" 
+      rate_limit: 0.5
+      verify_ssl: false
+    security:
+      verify_ssl_certificates: false
+      strict_validation: false
+    development:
+      mock_decreto_responses: true
+      save_raw_responses: true
+  
+  testing:
+    app:
+      debug: true
+    decreto_scraper:
+      debug_mode: true
+      log_level: "DEBUG"
+      verify_ssl: false
+    development:
+      mock_decreto_responses: true
+      skip_network_requests: true
+      validate_test_data: true
+
+# Enhanced Features Configuration
+enhanced_features:
+  # Input validation and sanitization
+  validation:
+    enable_sanitization: true       # Enable automatic input sanitization
+    regex_escaping: true            # Escape dangerous regex metacharacters
+    field_length_limits: true      # Enforce field length limits
+    empty_field_checks: true       # Check for empty required fields
+    
+  # Error reporting system
+  error_reporting:
+    generate_reports: true          # Generate comprehensive error reports
+    include_suggestions: true       # Include actionable suggestions in reports
+    categorize_errors: true         # Categorize errors by type and severity
+    save_to_json: true              # Save error reports as JSON files
+    
+  # Performance tracking
+  performance_tracking:
+    track_operations: true          # Track individual operation performance
+    measure_response_times: true    # Measure HTTP response times
+    calculate_statistics: true      # Calculate performance statistics
+    save_metrics: true              # Save metrics to files
+    
+  # Debug and troubleshooting
+  debugging:
+    enable_debug_mode: false        # Enable debug mode (development only)
+    save_debug_reports: true        # Save comprehensive debug reports
+    capture_responses: false        # Capture HTTP responses (development only)
+    session_tracking: true          # Track operations by session ID
+    
+  # Context management
+  context_management:
+    use_context_managers: true      # Use context managers for resource cleanup
+    automatic_cleanup: true         # Automatically clean up resources
+    session_isolation: true         # Isolate operations by session

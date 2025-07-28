@@ -13,7 +13,7 @@ from pathlib import Path
 import traceback
 
 from pdf_parser import ODGPDFParser
-from decreto_scraper import DecretoScraper
+from decreto_scraper import DecretoScraper, LogLevel
 from ai_synthesizer import AISynthesizer, SynthesisType
 from notion_integrator import NotionIntegrator, SyncDirection
 
@@ -140,7 +140,14 @@ class ODGWorkflowOrchestrator:
         # Initialize components
         try:
             self.pdf_parser = ODGPDFParser()
-            self.decreto_scraper = DecretoScraper()
+            self.decreto_scraper = DecretoScraper(
+                debug_mode=True,
+                log_level=LogLevel.INFO,
+                log_file=f"logs/workflow_decreto_scraper_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log",
+                enable_performance_tracking=True,
+                verify_ssl=False,
+                rate_limit=1.0
+            )
             self.ai_synthesizer = AISynthesizer(anthropic_api_key=anthropic_api_key)
             self.notion_integrator = NotionIntegrator(
                 token=notion_token, database_id=notion_database_id
@@ -284,9 +291,28 @@ class ODGWorkflowOrchestrator:
                 oggetto = deliberation.get("oggetto", "")
                 data_seduta = session_info.get("data_seduta", "")
 
-                # Scrape decreto status with enhanced information
+                # Enhanced input validation and sanitization
+                try:
+                    validated_seduta = self.decreto_scraper.validate_and_sanitize_input(
+                        str(seduta), "seduta", for_regex=True, max_length=50
+                    )
+                    validated_numero = self.decreto_scraper.validate_and_sanitize_input(
+                        str(numero), "numero", for_regex=True, max_length=50
+                    )
+                    validated_oggetto = self.decreto_scraper.validate_and_sanitize_input(
+                        oggetto, "oggetto", for_regex=False, max_length=1000
+                    )
+                except Exception as validation_error:
+                    self.logger.error(f"Validation failed for decreto {numero}: {validation_error}")
+                    deliberation["pubblicato"] = False
+                    deliberation["error"] = f"Validation error: {validation_error}"
+                    updated_deliberations.append(deliberation)
+                    errors.append(f"Validation error for decreto {numero}: {validation_error}")
+                    continue
+
+                # Scrape decreto status with enhanced validation and information
                 scraping_result = self.decreto_scraper.verify_decreto_publication(
-                    seduta, numero, oggetto, data_seduta
+                    validated_seduta, validated_numero, validated_oggetto, data_seduta
                 )
 
                 # Update deliberation with all scraped information
@@ -528,9 +554,25 @@ class ODGWorkflowOrchestrator:
                     numero = deliberation.get("numero", "")
                     oggetto = deliberation.get("oggetto", "")
                     
-                    # Check publication status
+                    # Enhanced input validation and sanitization
+                    try:
+                        validated_seduta = self.decreto_scraper.validate_and_sanitize_input(
+                            str(seduta), "seduta", for_regex=True, max_length=50
+                        )
+                        validated_numero = self.decreto_scraper.validate_and_sanitize_input(
+                            str(numero), "numero", for_regex=True, max_length=50
+                        )
+                        validated_oggetto = self.decreto_scraper.validate_and_sanitize_input(
+                            oggetto, "oggetto", for_regex=False, max_length=1000
+                        )
+                    except Exception as validation_error:
+                        self.logger.error(f"Validation failed for decreto {numero}: {validation_error}")
+                        results["still_unpublished"] += 1
+                        continue
+                    
+                    # Check publication status with enhanced validation
                     scraping_result = self.decreto_scraper.verify_decreto_publication(
-                        seduta, numero, oggetto
+                        validated_seduta, validated_numero, validated_oggetto
                     )
                     
                     if scraping_result.get("found"):
@@ -677,7 +719,11 @@ class ODGWorkflowOrchestrator:
 
         # Check Decreto Scraper
         try:
-            scraper = DecretoScraper()
+            scraper = DecretoScraper(
+                debug_mode=False,  # Health check doesn't need debug mode
+                log_level=LogLevel.ERROR,  # Only log errors for health check
+                verify_ssl=False
+            )
             health_status["components"]["decreto_scraper"] = {
                 "status": "healthy",
                 "message": "Decreto scraper initialized successfully",

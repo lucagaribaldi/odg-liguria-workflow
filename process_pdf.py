@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 from pdf_parser import ODGPDFParser
 from notion_integrator import NotionIntegrator
-from decreto_scraper import DecretoScraper
+from decreto_scraper import DecretoScraper, LogLevel
 
 def setup_logging():
     """Setup logging configuration."""

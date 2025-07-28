@@ -161,3 +161,56 @@ config.local.yaml
 config.local.yml
 local_config.yaml
 local_config.yml
+
+# ODG Liguria Workflow specific
+# Temporary analysis files
+*_analysis.json
+*_results.json
+*_report.json
+*_debug.json
+search_response_*.html
+form_structure_analysis.json
+decreto_search_results.json
+decreto_verification_results.json
+decreto_status_tracking.json
+
+# Test results and debug files
+test_results/
+test_data/
+demo_results/
+
+# Notion credentials and sensitive data
+.env.local
+notion_token.txt
+database_id.txt
+
+# Generated reports and analysis
+report_completo_*.json
+system_test_*.json
+batch_results_*.json
+advanced_decreto_search_results_*.json
+
+# Temporary decreto scraper files
+decreto_scraper_*.py
+*decreto_scraper*.py
+!src/decreto_scraper.py
+
+# Monitoring and sync reports
+decreto_sync_report_*.json
+notion_sync_report_*.json
+monitor_state.json
+
+# PDF processing temporary files
+*.pdf.processed
+*.pdf.backup
+pdf_processing_*.json
+
+# Dashboard and web files
+dashboard.html
+cli_dashboard.html
+main_page.html
+
+# Setup and automation scripts
+setup_*.sh
+*_automation.sh
+decreto_cron_example.txt
