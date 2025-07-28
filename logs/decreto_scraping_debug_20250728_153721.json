@@ -1,0 +1,193 @@
+{
+  "session_info": {
+    "session_id": "20250728_153433_335401",
+    "timestamp": "2025-07-28T15:37:21.786923",
+    "debug_mode": true,
+    "log_level": "INFO",
+    "base_url": "https://decretidigitali.regione.liguria.it"
+  },
+  "error_reports": [
+    {
+      "timestamp": "2025-07-28T15:35:30.505606",
+      "error_type": "DecretoNotFoundError",
+      "error_message": "Decreto 1 from seduta 3931 not found after trying 4 search strategies",
+      "operation": "all_strategies",
+      "severity": "low",
+      "error_code": "NOT_FOUND",
+      "suggestions": [
+        "Verify decreto number and session are correct",
+        "Check if decreto might not be published yet",
+        "Try alternative search terms"
+      ]
+    },
+    {
+      "timestamp": "2025-07-28T15:36:26.084718",
+      "error_type": "DecretoNotFoundError",
+      "error_message": "Decreto 2 from seduta 3931 not found after trying 4 search strategies",
+      "operation": "all_strategies",
+      "severity": "low",
+      "error_code": "NOT_FOUND",
+      "suggestions": [
+        "Verify decreto number and session are correct",
+        "Check if decreto might not be published yet",
+        "Try alternative search terms"
+      ]
+    },
+    {
+      "timestamp": "2025-07-28T15:37:21.785353",
+      "error_type": "DecretoNotFoundError",
+      "error_message": "Decreto 3 from seduta 3931 not found after trying 4 search strategies",
+      "operation": "all_strategies",
+      "severity": "low",
+      "error_code": "NOT_FOUND",
+      "suggestions": [
+        "Verify decreto number and session are correct",
+        "Check if decreto might not be published yet",
+        "Try alternative search terms"
+      ]
+    }
+  ],
+  "performance_stats": {
+    "session_id": "20250728_153433_335401",
+    "total_operations": 3,
+    "average_duration": 55.85049215952555,
+    "min_duration": 55.57705497741699,
+    "max_duration": 56.274120807647705,
+    "total_time": 167.55147647857666,
+    "operations": {
+      "verify_decreto_publication_153434_233508": {
+        "validation_time": 0.001753091812133789,
+        "working_scraper_time": 0.3186061382293701,
+        "_search_by_numero_and_date_time": 16.107521772384644,
+        "_search_by_oggetto_and_date_time": 22.39139199256897,
+        "_search_by_seduta_and_numero_time": 4.44897198677063,
+        "_search_by_numero_time": 13.003373146057129,
+        "total_duration": 56.274120807647705
+      },
+      "verify_decreto_publication_153530_508370": {
+        "validation_time": 0.00023031234741210938,
+        "working_scraper_time": 0.1526029109954834,
+        "_search_by_numero_and_date_time": 13.486739873886108,
+        "_search_by_oggetto_and_date_time": 23.759204864501953,
+        "_search_by_seduta_and_numero_time": 4.524211406707764,
+        "_search_by_numero_time": 13.652702331542969,
+        "total_duration": 55.57705497741699
+      },
+      "verify_decreto_publication_153626_085844": {
+        "validation_time": 8.702278137207031e-05,
+        "working_scraper_time": 0.24422502517700195,
+        "_search_by_numero_and_date_time": 13.339350938796997,
+        "_search_by_oggetto_and_date_time": 24.59562921524048,
+        "_search_by_seduta_and_numero_time": 3.8813419342041016,
+        "_search_by_numero_time": 13.638458013534546,
+        "total_duration": 55.70030069351196
+      }
+    },
+    "session_duration": 168.45140194892883
+  },
+  "captured_responses": [],
+  "debug_contexts": {
+    "verify_decreto_publication_153434_233508": {
+      "operation_name": "verify_decreto_publication",
+      "input_parameters": {
+        "seduta": "3931",
+        "numero": "1",
+        "oggetto": "I.R.C.C.S. \"GIANNINA GASLINI\" - CONSIGLIO DI AMMIN...",
+        "data_seduta": "2025-07-22"
+      },
+      "debug_messages": [
+        "[2025-07-28T15:34:34.233530] Starting input validation",
+        "[2025-07-28T15:34:34.235286] Input validation completed successfully",
+        "[2025-07-28T15:34:34.235371] Attempting working scraper strategy",
+        "[2025-07-28T15:34:34.553981] Working scraper returned no results",
+        "[2025-07-28T15:34:34.553993] Starting fallback search strategies",
+        "[2025-07-28T15:34:34.553998] Trying strategy 1/4: _search_by_numero_and_date",
+        "[2025-07-28T15:34:50.661531] Strategy _search_by_numero_and_date returned no results",
+        "[2025-07-28T15:34:50.661561] Trying strategy 2/4: _search_by_oggetto_and_date",
+        "[2025-07-28T15:35:13.052972] Strategy _search_by_oggetto_and_date returned no results",
+        "[2025-07-28T15:35:13.053015] Trying strategy 3/4: _search_by_seduta_and_numero",
+        "[2025-07-28T15:35:17.502005] Strategy _search_by_seduta_and_numero returned no results",
+        "[2025-07-28T15:35:17.502066] Trying strategy 4/4: _search_by_numero",
+        "[2025-07-28T15:35:30.505454] Strategy _search_by_numero returned no results",
+        "[2025-07-28T15:35:30.505499] All search strategies exhausted - decreto not found"
+      ],
+      "performance_metrics": {
+        "validation_time": 0.001753091812133789,
+        "working_scraper_time": 0.3186061382293701,
+        "_search_by_numero_and_date_time": 16.107521772384644,
+        "_search_by_oggetto_and_date_time": 22.39139199256897,
+        "_search_by_seduta_and_numero_time": 4.44897198677063,
+        "_search_by_numero_time": 13.003373146057129,
+        "total_duration": 56.274120807647705
+      }
+    },
+    "verify_decreto_publication_153530_508370": {
+      "operation_name": "verify_decreto_publication",
+      "input_parameters": {
+        "seduta": "3931",
+        "numero": "2",
+        "oggetto": "Emendamenti al disegno di legge n. 76/2025 (Dispos...",
+        "data_seduta": "2025-07-22"
+      },
+      "debug_messages": [
+        "[2025-07-28T15:35:30.508455] Starting input validation",
+        "[2025-07-28T15:35:30.508701] Input validation completed successfully",
+        "[2025-07-28T15:35:30.508978] Attempting working scraper strategy",
+        "[2025-07-28T15:35:30.661595] Working scraper returned no results",
+        "[2025-07-28T15:35:30.661618] Starting fallback search strategies",
+        "[2025-07-28T15:35:30.661629] Trying strategy 1/4: _search_by_numero_and_date",
+        "[2025-07-28T15:35:44.148380] Strategy _search_by_numero_and_date returned no results",
+        "[2025-07-28T15:35:44.148397] Trying strategy 2/4: _search_by_oggetto_and_date",
+        "[2025-07-28T15:36:07.907608] Strategy _search_by_oggetto_and_date returned no results",
+        "[2025-07-28T15:36:07.907622] Trying strategy 3/4: _search_by_seduta_and_numero",
+        "[2025-07-28T15:36:12.431851] Strategy _search_by_seduta_and_numero returned no results",
+        "[2025-07-28T15:36:12.431866] Trying strategy 4/4: _search_by_numero",
+        "[2025-07-28T15:36:26.084580] Strategy _search_by_numero returned no results",
+        "[2025-07-28T15:36:26.084605] All search strategies exhausted - decreto not found"
+      ],
+      "performance_metrics": {
+        "validation_time": 0.00023031234741210938,
+        "working_scraper_time": 0.1526029109954834,
+        "_search_by_numero_and_date_time": 13.486739873886108,
+        "_search_by_oggetto_and_date_time": 23.759204864501953,
+        "_search_by_seduta_and_numero_time": 4.524211406707764,
+        "_search_by_numero_time": 13.652702331542969,
+        "total_duration": 55.57705497741699
+      }
+    },
+    "verify_decreto_publication_153626_085844": {
+      "operation_name": "verify_decreto_publication",
+      "input_parameters": {
+        "seduta": "3931",
+        "numero": "3",
+        "oggetto": "Concessione del patrocinio ed uso del logo della R...",
+        "data_seduta": "2025-07-22"
+      },
+      "debug_messages": [
+        "[2025-07-28T15:36:26.085897] Starting input validation",
+        "[2025-07-28T15:36:26.085989] Input validation completed successfully",
+        "[2025-07-28T15:36:26.086091] Attempting working scraper strategy",
+        "[2025-07-28T15:36:26.330324] Working scraper returned no results",
+        "[2025-07-28T15:36:26.330354] Starting fallback search strategies",
+        "[2025-07-28T15:36:26.330366] Trying strategy 1/4: _search_by_numero_and_date",
+        "[2025-07-28T15:36:39.669726] Strategy _search_by_numero_and_date returned no results",
+        "[2025-07-28T15:36:39.669755] Trying strategy 2/4: _search_by_oggetto_and_date",
+        "[2025-07-28T15:37:04.265403] Strategy _search_by_oggetto_and_date returned no results",
+        "[2025-07-28T15:37:04.265453] Trying strategy 3/4: _search_by_seduta_and_numero",
+        "[2025-07-28T15:37:08.146813] Strategy _search_by_seduta_and_numero returned no results",
+        "[2025-07-28T15:37:08.146844] Trying strategy 4/4: _search_by_numero",
+        "[2025-07-28T15:37:21.785316] Strategy _search_by_numero returned no results",
+        "[2025-07-28T15:37:21.785340] All search strategies exhausted - decreto not found"
+      ],
+      "performance_metrics": {
+        "validation_time": 8.702278137207031e-05,
+        "working_scraper_time": 0.24422502517700195,
+        "_search_by_numero_and_date_time": 13.339350938796997,
+        "_search_by_oggetto_and_date_time": 24.59562921524048,
+        "_search_by_seduta_and_numero_time": 3.8813419342041016,
+        "_search_by_numero_time": 13.638458013534546,
+        "total_duration": 55.70030069351196
+      }
+    }
+  }
+}

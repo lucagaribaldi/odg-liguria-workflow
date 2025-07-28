@@ -25,11 +25,21 @@ class WorkflowMetrics:
     total_deliberations: int = 0
     parsed_successfully: int = 0
     scraped_successfully: int = 0
+    scraping_failed: int = 0
+    scraping_retried: int = 0
     synthesized_successfully: int = 0
     synced_to_notion: int = 0
     errors: int = 0
+    ssl_errors: int = 0
+    scraping_errors: List[str] = None
     start_time: datetime = None
     end_time: datetime = None
+
+    def __post_init__(self):
+        if self.start_time is None:
+            self.start_time = datetime.now()
+        if self.scraping_errors is None:
+            self.scraping_errors = []
 
     def __post_init__(self):
         if self.start_time is None:
@@ -63,6 +73,14 @@ class WorkflowMetrics:
         return (self.scraped_successfully / self.parsed_successfully) * 100
 
     @property
+    def scraping_success_rate(self) -> float:
+        """Calculate comprehensive scraping success rate including retries."""
+        total_scraping_attempts = self.scraped_successfully + self.scraping_failed
+        if total_scraping_attempts == 0:
+            return 0.0
+        return (self.scraped_successfully / total_scraping_attempts) * 100
+
+    @property
     def synthesis_rate(self) -> float:
         """Calculate synthesis success rate."""
         if self.parsed_successfully == 0:
@@ -84,6 +102,7 @@ class WorkflowMetrics:
             "success_rate": self.success_rate,
             "parsing_rate": self.parsing_rate,
             "scraping_rate": self.scraping_rate,
+            "scraping_success_rate": self.scraping_success_rate,
             "synthesis_rate": self.synthesis_rate,
             "notion_sync_rate": self.notion_sync_rate,
         }
@@ -132,6 +151,7 @@ class ODGWorkflowOrchestrator:
         """
         self.backup_dir = Path(backup_dir)
         self.backup_dir.mkdir(parents=True, exist_ok=True)
+        self.max_scraping_retries = 2  # Default value for backwards compatibility
 
         # Setup logging
         self.logger = logging.getLogger(__name__)
@@ -148,7 +168,7 @@ class ODGWorkflowOrchestrator:
                 verify_ssl=False,
                 rate_limit=1.0
             )
-            self.ai_synthesizer = AISynthesizer(anthropic_api_key=anthropic_api_key)
+            self.ai_synthesizer = AISynthesizer(use_ai=bool(anthropic_api_key))
             self.notion_integrator = NotionIntegrator(
                 token=notion_token, database_id=notion_database_id
             )
@@ -533,10 +553,10 @@ class ODGWorkflowOrchestrator:
         """
         try:
             self.logger.info(f"Starting publication check for last {days_back} days")
-            
+
             # Get unpublished deliberations from Notion
             unpublished_deliberations = self._get_unpublished_deliberations(days_back)
-            
+
             results = {
                 "timestamp": datetime.now().isoformat(),
                 "total_checked": len(unpublished_deliberations),
@@ -545,7 +565,7 @@ class ODGWorkflowOrchestrator:
                 "errors": 0,
                 "details": [],
             }
-            
+
             # Check each unpublished deliberation
             for deliberation in unpublished_deliberations:
                 try:
@@ -553,7 +573,7 @@ class ODGWorkflowOrchestrator:
                     seduta = deliberation.get("seduta", "")
                     numero = deliberation.get("numero", "")
                     oggetto = deliberation.get("oggetto", "")
-                    
+
                     # Enhanced input validation and sanitization
                     try:
                         validated_seduta = self.decreto_scraper.validate_and_sanitize_input(
@@ -566,15 +586,16 @@ class ODGWorkflowOrchestrator:
                             oggetto, "oggetto", for_regex=False, max_length=1000
                         )
                     except Exception as validation_error:
-                        self.logger.error(f"Validation failed for decreto {numero}: {validation_error}")
+                        self.logger.error(
+                            f"Validation failed for decreto {numero}: {validation_error}")
                         results["still_unpublished"] += 1
                         continue
-                    
+
                     # Check publication status with enhanced validation
                     scraping_result = self.decreto_scraper.verify_decreto_publication(
                         validated_seduta, validated_numero, validated_oggetto
                     )
-                    
+
                     if scraping_result.get("found"):
                         # Update Notion with publication info
                         self._update_notion_publication_status(
@@ -590,14 +611,14 @@ class ODGWorkflowOrchestrator:
                         })
                     else:
                         results["still_unpublished"] += 1
-                        
+
                 except Exception as e:
                     self.logger.error(f"Error checking deliberation {numero}: {str(e)}")
                     results["errors"] += 1
-            
+
             self.logger.info(f"Publication check completed: {results}")
             return results
-            
+
         except Exception as e:
             self.logger.error(f"Publication check failed: {str(e)}")
             return {"timestamp": datetime.now().isoformat(), "error": str(e)}
@@ -607,9 +628,10 @@ class ODGWorkflowOrchestrator:
         try:
             # This would query Notion for deliberations with pubblicato=False
             # For now, return empty list as placeholder
-            self.logger.info(f"Querying Notion for unpublished deliberations (last {days_back} days)")
+            self.logger.info(
+                f"Querying Notion for unpublished deliberations (last {days_back} days)")
             return []
-            
+
         except Exception as e:
             self.logger.error(f"Error getting unpublished deliberations: {str(e)}")
             return []
@@ -618,9 +640,10 @@ class ODGWorkflowOrchestrator:
         """Update Notion page with publication status."""
         try:
             # This would update the Notion page with the publication info
-            self.logger.info(f"Updating Notion for deliberation {deliberation.get('numero', 'N/A')}")
+            self.logger.info(
+                f"Updating Notion for deliberation {deliberation.get('numero', 'N/A')}")
             # Implementation would go here
-            
+
         except Exception as e:
             self.logger.error(f"Error updating Notion publication status: {str(e)}")
 
@@ -708,7 +731,7 @@ class ODGWorkflowOrchestrator:
         # Check PDF Parser
         try:
             # Simple check - create parser instance
-            parser = ODGPDFParser()
+            ODGPDFParser()
             health_status["components"]["pdf_parser"] = {
                 "status": "healthy",
                 "message": "PDF parser initialized successfully",
@@ -719,7 +742,7 @@ class ODGWorkflowOrchestrator:
 
         # Check Decreto Scraper
         try:
-            scraper = DecretoScraper(
+            DecretoScraper(
                 debug_mode=False,  # Health check doesn't need debug mode
                 log_level=LogLevel.ERROR,  # Only log errors for health check
                 verify_ssl=False
@@ -734,7 +757,7 @@ class ODGWorkflowOrchestrator:
 
         # Check AI Synthesizer
         try:
-            synthesizer = AISynthesizer()
+            AISynthesizer()
             health_status["components"]["ai_synthesizer"] = {
                 "status": "healthy",
                 "message": "AI synthesizer initialized successfully",

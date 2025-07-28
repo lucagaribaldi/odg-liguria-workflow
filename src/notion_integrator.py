@@ -83,15 +83,17 @@ class NotionIntegrator:
         self.logger = logging.getLogger(__name__)
         self.setup_logging()
 
-        # Database schema
+        # Database schema - Updated to match actual Notion database
         self.database_schema = {
             "Seduta": {"type": "number"},
             "Numero": {"type": "number"},
-            "Titolo": {"type": "title"},
+            "Tipologia": {"type": "title"},  # Campo title correto
             "Oggetto": {"type": "rich_text"},
             "Proponente": {"type": "rich_text"},
             "FS": {"type": "checkbox"},
             "Pubblicato": {"type": "select"},
+            "URL_Decreto": {"type": "url"},  # Campo per URL decreto
+            "Decreto_URL": {"type": "url"},  # Campo alternativo
             "Sintesi_Rapida": {"type": "rich_text"},
             "URL_Decreto": {"type": "url"},
             "Categoria": {"type": "select"},
@@ -347,6 +349,7 @@ class NotionIntegrator:
         elif property_name == "Pubblicato":
             return [
                 {"name": "Non Controllato", "color": "gray"},
+                {"name": "Da Verificare", "color": "yellow"},
                 {"name": "Non Pubblicato", "color": "red"},
                 {"name": "Pubblicato", "color": "green"},
             ]
@@ -506,12 +509,69 @@ class NotionIntegrator:
                 page_numero_str = str(page_numero) if page_numero is not None else ""
 
                 if page_seduta_str == seduta_str and page_numero_str == numero_str:
-                    self.logger.debug(f"Found existing page for seduta {seduta_str}, numero {numero_str}")
+                    self.logger.debug(
+                        f"Found existing page for seduta {seduta_str}, numero {numero_str}")
                     return page
             except Exception:
                 continue
 
         return None
+
+    def update_deliberation_with_decreto_info(self, page_id: str, decreto_result: Dict[str, Any]) -> bool:
+        """
+        Update existing Notion page with decreto scraping results.
+
+        Args:
+            page_id: Notion page ID to update
+            decreto_result: Result from decreto scraping
+
+        Returns:
+            True if successful, False otherwise
+        """
+        try:
+            properties = {}
+
+            # Update pubblicato status based on decreto result
+            if decreto_result.get("found", False):
+                properties["Pubblicato"] = {"select": {"name": "Pubblicato"}}
+
+                # Add URL if found
+                if decreto_result.get("url"):
+                    properties["URL_Decreto"] = {"url": decreto_result["url"]}
+                    properties["Decreto_URL"] = {"url": decreto_result["url"]}
+
+                # Add publication date if available
+                if decreto_result.get("data_pubblicazione"):
+                    date_str = self._normalize_date_for_notion(decreto_result["data_pubblicazione"])
+                    if date_str:
+                        properties["Data_Pubblicazione"] = {"date": {"start": date_str}}
+
+                self.logger.info(
+                    f"Updating page {page_id[:8]}... with decreto found: {decreto_result.get('url', 'N/A')}")
+            else:
+                # Mark as verified but not published
+                properties["Pubblicato"] = {"select": {"name": "Da Verificare"}}
+                self.logger.info(
+                    f"Updating page {page_id[:8]}... - decreto not found, marked as 'Da Verificare'")
+
+            # Add last check date
+            from datetime import datetime
+            properties["Ultimo_Controllo_Decreto"] = {
+                "date": {"start": datetime.now().strftime("%Y-%m-%d")}
+            }
+
+            # Perform update
+            self._make_notion_request(
+                "update_page",
+                page_id=page_id,
+                properties=properties
+            )
+
+            return True
+
+        except Exception as e:
+            self.logger.error(f"Error updating page {page_id}: {e}")
+            return False
 
     def _create_notion_page(self, deliberation: Dict) -> bool:
         """Create a new Notion page for deliberation."""
@@ -577,9 +637,9 @@ class NotionIntegrator:
         if "fs_flag" in deliberation:
             properties["FS"] = {"checkbox": deliberation["fs_flag"]}
 
-        # Map tipo_atto to Titolo field (handle as title field)
+        # Map tipo_atto to Tipologia field (handle as title field)
         if "tipo_atto" in deliberation and deliberation["tipo_atto"]:
-            properties["Titolo"] = {
+            properties["Tipologia"] = {
                 "title": [{"text": {"content": deliberation["tipo_atto"][:2000]}}]
             }
 
@@ -618,8 +678,16 @@ class NotionIntegrator:
             # Default state when pubblicato field is not present
             properties["Pubblicato"] = {"select": {"name": "Non Controllato"}}
 
-        if "url_decreto" in deliberation:
+        # URL Decreto handling - support both fields
+        if "url_decreto" in deliberation and deliberation["url_decreto"]:
             properties["URL_Decreto"] = {"url": deliberation["url_decreto"]}
+            properties["Decreto_URL"] = {"url": deliberation["url_decreto"]}
+
+        # Data pubblicazione
+        if "data_pubblicazione" in deliberation and deliberation["data_pubblicazione"]:
+            date_str = self._normalize_date_for_notion(deliberation["data_pubblicazione"])
+            if date_str:
+                properties["Data_Pubblicazione"] = {"date": {"start": date_str}}
 
         # Session date
         if "data_seduta" in deliberation and deliberation["data_seduta"]:
@@ -733,11 +801,11 @@ class NotionIntegrator:
         """Normalize date string to ISO format (YYYY-MM-DD) for Notion."""
         try:
             from datetime import datetime
-            
+
             # If already in ISO format, return as is
             if re.match(r'^\d{4}-\d{2}-\d{2}$', date_str):
                 return date_str
-            
+
             # Handle different date formats
             date_patterns = [
                 ("%d/%m/%Y", r"(\d{1,2})/(\d{1,2})/(\d{4})"),  # DD/MM/YYYY
@@ -746,17 +814,17 @@ class NotionIntegrator:
                 ("%Y/%m/%d", r"(\d{4})/(\d{1,2})/(\d{1,2})"),  # YYYY/MM/DD
                 ("%Y-%m-%d", r"(\d{4})-(\d{1,2})-(\d{1,2})"),  # YYYY-MM-DD
             ]
-            
+
             for format_str, pattern in date_patterns:
                 match = re.search(pattern, date_str)
                 if match:
                     parts = match.groups()
-                    
+
                     if format_str.startswith("%Y"):  # Year first
                         year, month, day = parts
                     else:  # Day first (Italian format)
                         day, month, year = parts
-                    
+
                     # Validate date
                     try:
                         datetime(int(year), int(month), int(day))
@@ -764,7 +832,7 @@ class NotionIntegrator:
                         return f"{year}-{month.zfill(2)}-{day.zfill(2)}"
                     except ValueError:
                         continue
-            
+
             # Try to parse with datetime
             try:
                 # Common Italian formats
@@ -775,7 +843,7 @@ class NotionIntegrator:
                         return parsed_date.strftime("%Y-%m-%d")
                     except ValueError:
                         continue
-                
+
                 # Common ISO formats
                 iso_formats = ["%Y-%m-%d", "%Y/%m/%d"]
                 for fmt in iso_formats:
@@ -784,13 +852,13 @@ class NotionIntegrator:
                         return parsed_date.strftime("%Y-%m-%d")
                     except ValueError:
                         continue
-                        
+
             except Exception:
                 pass
-                
+
             self.logger.warning(f"Could not normalize date: {date_str}")
             return None
-            
+
         except Exception as e:
             self.logger.warning(f"Error normalizing date '{date_str}': {str(e)}")
             return None

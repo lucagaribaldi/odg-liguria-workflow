@@ -1,0 +1,139 @@
+# ODG Liguria Workflow Configuration Template
+# Copy this file to config.yaml and customize for your environment
+
+# Application Settings
+app:
+  name: "ODG Liguria Workflow"
+  version: "1.0.0"
+  environment: "development"  # development, staging, production
+  debug: true
+
+# Email Configuration
+email:
+  # IMAP Settings
+  imap:
+    server: "imap.gmail.com"
+    port: 993
+    use_ssl: true
+    username: "your-email@example.com"
+    password: "your-app-password"  # Use app-specific password
+    folder: "INBOX"
+    
+  # SMTP Settings (for notifications)
+  smtp:
+    server: "smtp.gmail.com"
+    port: 587
+    use_tls: true
+    username: "your-email@example.com"
+    password: "your-app-password"
+    
+  # Processing Settings
+  processing:
+    check_interval: 300  # seconds
+    max_emails_per_batch: 50
+    attachment_max_size: 10485760  # 10MB in bytes
+    allowed_attachment_types: [".pdf", ".doc", ".docx", ".xls", ".xlsx"]
+
+# Database Configuration
+database:
+  type: "sqlite"
+  path: "data/odg_workflow.db"
+  backup_enabled: true
+  backup_interval: 3600  # seconds
+  backup_retention: 7  # days
+
+# File Processing
+file_processing:
+  input_dir: "data/input"
+  output_dir: "data/output"
+  backup_dir: "data/backups"
+  temp_dir: "temp"
+  
+  # Document processing settings
+  document:
+    extract_text: true
+    extract_metadata: true
+    validate_format: true
+    
+  # Excel processing settings
+  excel:
+    default_sheet: 0
+    header_row: 1
+    skip_empty_rows: true
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/odg_workflow.log"
+  max_file_size: 10485760  # 10MB
+  backup_count: 5
+  console_output: true
+
+# Security Settings
+security:
+  encrypt_sensitive_data: true
+  password_min_length: 8
+  session_timeout: 3600  # seconds
+  max_login_attempts: 5
+  lockout_duration: 1800  # seconds
+
+# Workflow Settings
+workflow:
+  # Stage definitions
+  stages:
+    - name: "email_ingestion"
+      enabled: true
+      timeout: 300
+      
+    - name: "document_processing"
+      enabled: true
+      timeout: 600
+      
+    - name: "data_validation"
+      enabled: true
+      timeout: 180
+      
+    - name: "output_generation"
+      enabled: true
+      timeout: 300
+      
+    - name: "notification"
+      enabled: true
+      timeout: 60
+      
+  # Retry settings
+  retry:
+    max_attempts: 3
+    backoff_factor: 2
+    
+# Dashboard Configuration
+dashboard:
+  enabled: true
+  host: "0.0.0.0"
+  port: 5000
+  auto_reload: true
+  
+# Monitoring & Alerts
+monitoring:
+  enabled: true
+  metrics_retention: 30  # days
+  
+  alerts:
+    email_failures: true
+    processing_errors: true
+    disk_space_low: true
+    
+  thresholds:
+    error_rate: 0.05  # 5%
+    processing_time: 300  # seconds
+    disk_usage: 0.85  # 85%
+
+# External Services
+external_services:
+  # Add configurations for external APIs if needed
+  # Example:
+  # api_service:
+  #   url: "https://api.example.com"
+  #   key: "your-api-key"
+  #   timeout: 30

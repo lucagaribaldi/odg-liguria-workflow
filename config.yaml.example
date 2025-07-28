@@ -129,11 +129,178 @@ monitoring:
     processing_time: 300  # seconds
     disk_usage: 0.85  # 85%
 
-# External Services
+# ===================================================================
+# DECRETO SCRAPING CONFIGURATION
+# ===================================================================
+# Configurazioni avanzate per il decreto scraper con supporto SSL
+# e strategie di retry robuste per gestire problemi di connettività
+
+scraping:
+  # SSL/TLS Configuration
+  # Gestione certificati SSL e problemi di verifica
+  ssl_verification: true            # Se false, disabilita completamente la verifica SSL
+  allow_self_signed: false          # Permetti certificati self-signed o non validi
+  ssl_check_hostname: true          # Verifica che il nome host corrisponda al certificato
+  ssl_ca_bundle_path: null          # Percorso a bundle certificati CA personalizzato (opzionale)
+  
+  # Connection & Timeout Settings
+  # Configurazioni di connessione e timeout per gestire network lenti
+  timeout_seconds: 30               # Timeout per singola richiesta HTTP (aumentato per reti lente)
+  connect_timeout: 10               # Timeout specifico per connessione TCP
+  read_timeout: 20                  # Timeout specifico per lettura dati
+  
+  # Retry Strategy Configuration
+  # Strategia di retry con backoff progressivo per gestire errori temporanei
+  max_retries: 3                    # Numero massimo di tentativi per ogni richiesta
+  retry_delay_seconds: [1, 3, 5]   # Delay progressivo tra tentativi (in secondi)
+  retry_on_ssl_errors: true         # Riprova automaticamente su errori SSL
+  retry_on_timeout: true            # Riprova automaticamente su timeout
+  retry_on_http_errors: [500, 502, 503, 504]  # Codici HTTP che attivano retry
+  
+  # User Agent Rotation
+  # Rotazione user agents per evitare blocking e simulare browser reali
+  user_agents:
+    - 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+    - 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+    - 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+    - 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0'
+    - 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:120.0) Gecko/20100101 Firefox/120.0'
+  
+  # Rate Limiting
+  # Controllo velocità richieste per evitare sovraccarico server
+  rate_limit_seconds: 1.0           # Pausa minima tra richieste consecutive
+  burst_requests: 5                 # Numero richieste consecutive permesse
+  burst_cooldown: 10                # Secondi di pausa dopo burst
+  
+  # Backup Endpoints & Fallback Strategy
+  # URL alternativi e strategie di fallback per alta disponibilità
+  backup_endpoints:
+    - 'https://decretidigitali.regione.liguria.it'  # Primario HTTPS
+    - 'http://decretidigitali.regione.liguria.it'   # Fallback HTTP (meno sicuro)
+  
+  # Request Configuration
+  # Configurazioni avanzate per richieste HTTP
+  follow_redirects: true            # Segui automaticamente redirect HTTP
+  max_redirects: 5                  # Numero massimo di redirect da seguire
+  verify_content_type: false        # Verifica content-type delle risposte
+  max_response_size: 10485760       # Dimensione massima risposta (10MB)
+  
+  # Parsing & Content Processing
+  # Configurazioni per parsing contenuto e estrazione dati
+  encoding: 'utf-8'                 # Encoding di default per contenuto
+  parse_html_strict: false          # Parsing HTML rigoroso (può causare errori)
+  extract_metadata: true            # Estrai metadata da documenti trovati
+  
+  # Debug & Logging
+  # Configurazioni per debug e logging avanzato
+  debug_mode: false                 # Abilita logging debug dettagliato
+  log_requests: true                # Log di tutte le richieste HTTP
+  log_responses: false              # Log delle risposte (può essere verboso)
+  save_failed_responses: true       # Salva risposte fallite per debug
+  failed_responses_dir: 'logs/failed_responses'
+
+# ===================================================================
+# SYSTEM MONITORING CONFIGURATION  
+# ===================================================================
+# Configurazioni per monitoraggio proattivo del sistema e alerting
+
+monitoring:
+  # Health Check Configuration
+  # Configurazioni per controlli di salute automatici
+  enabled: true                     # Abilita monitoraggio sistema
+  health_check_interval_minutes: 60 # Intervallo controlli salute (ogni ora)
+  ssl_check_enabled: true           # Abilita controlli certificati SSL
+  connectivity_check_enabled: true  # Abilita test connettività di base
+  scraping_test_enabled: true       # Abilita test funzionalità scraping
+  
+  # Alert Thresholds
+  # Soglie per attivazione automatica alert
+  alert_threshold_failure_rate: 0.8    # Alert se >80% operazioni falliscono
+  alert_threshold_ssl_expiry_days: 30  # Alert se SSL scade in <30 giorni
+  alert_threshold_response_time_ms: 10000  # Alert se response time >10s
+  alert_consecutive_failures: 3        # Alert dopo 3 failure consecutivi
+  
+  # Metrics & Data Retention
+  # Configurazioni per retention metriche e dati storici
+  metrics_retention_days: 30        # Giorni di retention metriche (30 giorni)
+  detailed_logs_retention_days: 7   # Giorni retention log dettagliati
+  health_reports_retention_days: 90 # Giorni retention report salute
+  cleanup_interval_hours: 24        # Intervallo pulizia dati scaduti
+  
+  # Report Generation
+  # Configurazioni per generazione automatica report
+  auto_generate_reports: true       # Genera report automaticamente
+  daily_report_enabled: true        # Report giornaliero abilitato
+  weekly_report_enabled: true       # Report settimanale abilitato
+  report_output_dir: 'reports'      # Directory output report
+  report_format: 'html'             # Formato default report (html/json/markdown)
+  
+  # Email Alerts Configuration
+  # Configurazioni per invio alert via email (richiede sezione email configurata)
+  email_alerts_enabled: false      # Abilita alert via email
+  alert_recipients:                 # Lista destinatari alert
+    - 'admin@yourcompany.com'
+    - 'devops@yourcompany.com'
+  alert_severity_levels: ['critical', 'warning']  # Livelli che attivano email
+  alert_rate_limit_minutes: 60     # Rate limit invio alert (max 1/ora per tipo)
+  
+  # Performance Monitoring
+  # Monitoraggio performance e metriche dettagliate
+  track_response_times: true        # Traccia tempi di risposta
+  track_success_rates: true         # Traccia percentuali successo
+  track_ssl_metrics: true           # Traccia metriche SSL
+  track_error_patterns: true        # Traccia pattern errori per analisi
+  
+  # System Resources Monitoring
+  # Monitoraggio risorse sistema (CPU, memoria, disco)
+  monitor_system_resources: true    # Abilita monitoraggio risorse
+  cpu_alert_threshold: 80           # % CPU che attiva alert
+  memory_alert_threshold: 85        # % memoria che attiva alert  
+  disk_alert_threshold: 90          # % disco che attiva alert
+  
+  # Custom Monitoring Scripts
+  # Percorsi a script personalizzati per monitoraggio
+  custom_health_checks: []          # Lista percorsi script custom
+  # Esempio:
+  # custom_health_checks:
+  #   - 'scripts/custom_db_check.py'
+  #   - 'scripts/custom_api_check.sh'
+
+# ===================================================================
+# EXTERNAL SERVICES CONFIGURATION
+# ===================================================================
+# Configurazioni per servizi esterni e integrazioni
+
 external_services:
-  # Add configurations for external APIs if needed
-  # Example:
-  # api_service:
+  # Notion Integration
+  # Configurazioni per integrazione con Notion
+  notion:
+    enabled: true                   # Abilita integrazione Notion
+    timeout_seconds: 30             # Timeout richieste API Notion
+    max_retries: 3                  # Retry su errori API
+    rate_limit_requests_per_second: 3  # Rate limit API Notion
+    
+  # Anthropic AI Integration  
+  # Configurazioni per integrazione AI (Claude)
+  anthropic:
+    enabled: false                  # Abilita se hai API key Claude
+    timeout_seconds: 60             # Timeout per richieste AI (maggiore)
+    max_tokens: 4000               # Token massimi per risposta
+    model: 'claude-3-sonnet-20240229'  # Modello Claude da utilizzare
+    
+  # Generic HTTP Services
+  # Configurazioni per servizi HTTP generici
+  http_defaults:
+    timeout: 30                     # Timeout default servizi HTTP
+    max_retries: 2                  # Retry default per servizi esterni
+    verify_ssl: true                # Verifica SSL per servizi esterni
+    
+  # Example External API Configuration
+  # Esempio configurazione API esterna
+  # custom_api:
   #   url: "https://api.example.com"
-  #   key: "your-api-key"
+  #   api_key: "your-api-key"
   #   timeout: 30
+  #   headers:
+  #     Content-Type: "application/json"
+  #     User-Agent: "ODG-Workflow/1.0"

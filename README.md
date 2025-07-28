@@ -79,6 +79,83 @@ python3 main_workflow.py --debug
 python3 main_workflow.py --dry-run
 ```
 
+#### Nuovi Comandi CLI 🔧
+
+**Test Scraping Decreto**
+```bash
+# Test decreto specifico con debug completo
+python scripts/cli.py test-scraping --seduta 3930 --numero 1 --verbose
+
+# Test con timeout personalizzato
+python scripts/cli.py test-scraping --seduta 3930 --numero 1 --timeout 60
+
+# Test con SSL non verificato (dev/test)
+python scripts/cli.py test-scraping --seduta 3930 --numero 1 --allow-unverified
+
+# Test con rate limiting personalizzato
+python scripts/cli.py test-scraping --seduta 3930 --numero 1 --rate-limit 1.5
+```
+
+**Health Check Sistema**
+```bash
+# Check completo sistema
+python scripts/cli.py health-check
+
+# Check con dettagli estesi
+python scripts/cli.py health-check --verbose
+
+# Check con timeout personalizzato
+python scripts/cli.py health-check --timeout 30
+
+# Check ignorando SSL (emergenza)
+python scripts/cli.py health-check --ignore-ssl
+```
+
+**Fix SSL Automatico**
+```bash
+# Applica fix SSL automatici
+python scripts/cli.py fix-ssl
+
+# Fix con backup configurazione
+python scripts/cli.py fix-ssl --backup
+
+# Fix solo certificati (no config)
+python scripts/cli.py fix-ssl --certs-only
+
+# Fix in modalità dry-run (test)
+python scripts/cli.py fix-ssl --dry-run
+```
+
+**Retry Decreti Falliti**
+```bash
+# Riprova tutti i decreti falliti
+python scripts/cli.py retry-failed
+
+# Riprova con limite tentativi
+python scripts/cli.py retry-failed --max-attempts 5
+
+# Riprova solo errori SSL
+python scripts/cli.py retry-failed --ssl-only
+
+# Riprova con delay personalizzato
+python scripts/cli.py retry-failed --delay 2.0
+```
+
+**Genera Report Dettagliato**
+```bash
+# Report completo ultimi 7 giorni
+python scripts/cli.py generate-report
+
+# Report periodo personalizzato
+python scripts/cli.py generate-report --days 30
+
+# Report con output personalizzato
+python scripts/cli.py generate-report --output custom_report.html
+
+# Report con dettagli debug
+python scripts/cli.py generate-report --include-debug
+```
+
 #### Test e Validazione
 ```bash
 # Test integrazione completa
@@ -228,7 +305,308 @@ decreto_scraper:
       oggetto: 1000
 ```
 
-## 🚨 Troubleshooting
+## 🛡️ Troubleshooting SSL
+
+### Gestione Errori Certificato
+
+**Problema**: Errore `SSL: CERTIFICATE_VERIFY_FAILED`
+```bash
+# 1. Verifica stato certificato
+python scripts/cli.py health-check --verbose
+
+# 2. Applica fix automatico
+python scripts/cli.py fix-ssl --backup
+
+# 3. Test con SSL disabilitato (SOLO per dev/test)
+python scripts/cli.py test-scraping --seduta 3930 --numero 1 --allow-unverified
+```
+
+**Problema**: Certificato scaduto
+```bash
+# Controlla scadenza certificato
+openssl s_client -connect decretidigitali.regione.liguria.it:443 -servername decretidigitali.regione.liguria.it < /dev/null 2>/dev/null | openssl x509 -noout -dates
+
+# Fix automatico certificati
+python scripts/cli.py fix-ssl --certs-only
+```
+
+**Configurazione SSL Avanzata**
+```yaml
+# config.yaml
+scraping:
+  ssl_verification: true
+  ssl_cert_path: "/path/to/cert.pem"  # Opzionale
+  ssl_key_path: "/path/to/key.pem"    # Opzionale
+  ssl_ca_bundle: "/path/to/ca.pem"    # Opzionale
+  ssl_check_hostname: true
+  ssl_timeout: 30
+```
+
+## 📊 Monitoring e Health Check
+
+### Interpretare Health Check
+
+**Stato Sistema**
+- 🟢 **OPERATIONAL**: Tutto funziona correttamente
+- 🟡 **DEGRADED**: Problemi minori, sistema funzionante
+- 🔴 **CRITICAL**: Problemi gravi, intervento necessario
+- ⚫ **UNKNOWN**: Stato non determinabile
+
+**Metriche Chiave**
+```bash
+# Controlla metriche dettagliate
+python scripts/cli.py health-check --verbose
+
+# Output esempio:
+# 🌐 Site Status: OPERATIONAL
+# 🔒 SSL Status: VALID (45 days remaining)
+# 📊 Success Rate: 95.2% (last 24h)
+# ⚡ Response Time: 1250ms avg
+# 🔗 Availability: 99.1% (last 24h)
+# ❌ Total Errors: 3 (2 SSL, 1 timeout)
+```
+
+**Dashboard Analytics**
+```bash
+# Genera dashboard interattivo
+python src/dashboard_generator.py
+
+# Apri dashboard.html per visualizzare:
+# - Success rate scraping 24h
+# - Distribuzione errori
+# - Timeline connessioni
+# - Heatmap disponibilità sito
+```
+
+**File Metriche**
+```bash
+# Monitora file health metrics
+tail -f logs/health_metrics.json
+
+# Analizza metriche storiche
+jq '.[] | select(.site_status == "critical")' logs/health_metrics.json
+```
+
+## ⚙️ Configurazione Avanzata
+
+### Opzioni SSL
+```yaml
+# config.yaml - Sezione SSL
+scraping:
+  ssl_verification: true          # Verifica certificati SSL
+  ssl_cert_path: null            # Path certificato client (opzionale)
+  ssl_key_path: null             # Path chiave privata (opzionale)
+  ssl_ca_bundle: null            # Path CA bundle personalizzato
+  ssl_check_hostname: true       # Verifica hostname nel certificato
+  ssl_timeout: 30                # Timeout connessione SSL (secondi)
+  ssl_ciphers: "HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!SRP:!CAMELLIA"
+```
+
+### Opzioni Scraping
+```yaml
+# config.yaml - Sezione Scraping
+scraping:
+  max_retries: 3                 # Numero massimo retry
+  retry_delay_seconds: [1, 3, 5] # Delay progressivo tra retry
+  timeout: 30                    # Timeout richiesta (secondi)
+  rate_limit: 2.0               # Secondi tra richieste
+  
+  # User agents per rotation
+  user_agents:
+    - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+    - "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+    - "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101"
+    - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0) Gecko/20100101"
+  
+  # Endpoint di backup
+  backup_endpoints:
+    - 'https://decretidigitali.regione.liguria.it'
+    - 'http://decretidigitali.regione.liguria.it'
+  
+  # Headers personalizzati
+  headers:
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+    Accept-Language: "it-IT,it;q=0.8,en-US;q=0.5,en;q=0.3"
+    Accept-Encoding: "gzip, deflate"
+    DNT: "1"
+    Connection: "keep-alive"
+    Upgrade-Insecure-Requests: "1"
+```
+
+### Configurazione Monitoring
+```yaml
+# config.yaml - Sezione Monitoring
+monitoring:
+  health_check_interval: 300     # Secondi tra health check
+  metrics_retention_days: 30     # Giorni retention metriche
+  
+  # Soglie alert
+  alert_thresholds:
+    response_time_ms: 5000       # Soglia tempo risposta
+    error_rate_percent: 10       # Soglia tasso errori
+    availability_percent: 95     # Soglia disponibilità
+    ssl_expiry_days: 30         # Giorni preavviso scadenza SSL
+  
+  # Destinazioni notifiche
+  notifications:
+    email_enabled: false
+    slack_webhook: null
+    log_file: "logs/alerts.log"
+```
+
+## 🚨 Common Issues
+
+### 🔒 SSL Certificate Errors
+
+**Problema**: `requests.exceptions.SSLError: HTTPSConnectionPool`
+```bash
+# Diagnosi
+python scripts/cli.py health-check --verbose
+
+# Soluzioni progressive
+# 1. Update certificati sistema
+sudo apt-get update && sudo apt-get install ca-certificates  # Ubuntu/Debian
+brew install ca-certificates  # macOS
+
+# 2. Fix automatico
+python scripts/cli.py fix-ssl --backup
+
+# 3. Bypass temporaneo (SOLO dev/test)
+python scripts/cli.py test-scraping --allow-unverified --seduta 3930 --numero 1
+```
+
+**Problema**: `SSL: WRONG_VERSION_NUMBER`
+```bash
+# Il sito potrebbe usare HTTP invece di HTTPS
+# Controlla endpoint di backup
+python scripts/cli.py test-scraping --seduta 3930 --numero 1 --verbose
+
+# Modifica config per usare endpoint HTTP di backup
+# config.yaml backup_endpoints section
+```
+
+### ⏱️ Timeout Issues
+
+**Problema**: `requests.exceptions.ReadTimeout`
+```bash
+# Aumenta timeout
+python scripts/cli.py test-scraping --timeout 60 --seduta 3930 --numero 1
+
+# Test connettività
+ping decretidigitali.regione.liguria.it
+curl -I --connect-timeout 10 https://decretidigitali.regione.liguria.it
+
+# Configurazione permanente in config.yaml
+scraping:
+  timeout: 60
+  rate_limit: 3.0  # Rallenta richieste
+```
+
+**Problema**: `requests.exceptions.ConnectTimeout`
+```bash
+# Test network connectivity
+python scripts/cli.py health-check --verbose
+
+# Prova endpoint alternativi
+python scripts/cli.py test-scraping --seduta 3930 --numero 1 --verbose
+
+# Check DNS resolution
+nslookup decretidigitali.regione.liguria.it
+```
+
+### 🌐 Network Connectivity Problems
+
+**Problema**: `requests.exceptions.ConnectionError`
+```bash
+# Diagnosi completa
+python scripts/cli.py health-check --verbose
+
+# Test manuale connettività
+curl -v https://decretidigitali.regione.liguria.it
+telnet decretidigitali.regione.liguria.it 443
+
+# Check proxy/firewall
+export https_proxy=http://proxy:8080  # Se necessario
+python scripts/cli.py test-scraping --seduta 3930 --numero 1
+```
+
+**Problema**: DNS Resolution Failed
+```bash
+# Test DNS
+nslookup decretidigitali.regione.liguria.it
+dig decretidigitali.regione.liguria.it
+
+# Prova DNS alternativi
+echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf  # Temporaneo
+
+# Test con IP diretto (se conosciuto)
+curl -H "Host: decretidigitali.regione.liguria.it" https://IP_ADDRESS
+```
+
+### 📊 Notion API Rate Limiting
+
+**Problema**: `notion_client.errors.APIResponseError: rate_limited`
+```bash
+# Controlla rate limiting attuale
+python scripts/cli.py health-check --verbose | grep -i notion
+
+# Rallenta operazioni Notion
+# config.yaml
+notion:
+  rate_limit: 3.0              # Secondi tra richieste
+  max_retries: 5               # Aumenta retry
+  retry_backoff: [1, 2, 4, 8]  # Backoff esponenziale
+
+# Test connettività Notion
+python -c "from notion_client import Client; Client(auth='your_token').databases.retrieve('your_db_id')"
+```
+
+**Problema**: `notion_client.errors.APIResponseError: unauthorized`
+```bash
+# Verifica token Notion
+echo $NOTION_TOKEN
+
+# Test token validity
+curl -H "Authorization: Bearer $NOTION_TOKEN" \
+     -H "Notion-Version: 2022-06-28" \
+     https://api.notion.com/v1/users/me
+
+# Rigenera token se necessario
+# https://www.notion.so/my-integrations
+```
+
+### 🔧 Risoluzione Rapida Problemi
+
+**Comando Diagnosi Completa**
+```bash
+# Script diagnosi automatica
+#!/bin/bash
+echo "=== ODG System Diagnosis ==="
+echo "1. Health Check:"
+python scripts/cli.py health-check --verbose
+
+echo "\n2. SSL Status:"
+openssl s_client -connect decretidigitali.regione.liguria.it:443 -servername decretidigitali.regione.liguria.it < /dev/null 2>/dev/null | openssl x509 -noout -dates
+
+echo "\n3. Network Test:"
+ping -c 3 decretidigitali.regione.liguria.it
+
+echo "\n4. DNS Resolution:"
+nslookup decretidigitali.regione.liguria.it
+
+echo "\n5. Recent Errors:"
+tail -n 20 logs/health_metrics.json | jq '.[] | select(.site_status == "critical")'
+```
+
+**Risoluzione Step-by-Step**
+1. **Esegui diagnosi**: `python scripts/cli.py health-check --verbose`
+2. **Identifica problema**: Controlla stato (CRITICAL/DEGRADED)
+3. **Applica fix**: `python scripts/cli.py fix-ssl` (per SSL)
+4. **Test soluzione**: `python scripts/cli.py test-scraping --seduta 3930 --numero 1`
+5. **Monitora**: Controlla dashboard o `tail -f logs/health_metrics.json`
+
+## 🚨 Troubleshooting Avanzato
 
 ### Debug Mode
 ```bash
@@ -246,15 +624,6 @@ Se ricevi errori di validazione:
 2. Verifica i limiti di lunghezza campi
 3. Esamina il report di errore per suggerimenti
 4. Usa il debug mode per analisi dettagliata
-
-### Network Issues
-```bash
-# Test connettività
-python3 -c "import requests; print(requests.get('https://decretidigitali.regione.liguria.it').status_code)"
-
-# Se SSL problemi in dev:
-# Imposta verify_ssl: false in config
-```
 
 ## 📚 Documentazione Completa
 

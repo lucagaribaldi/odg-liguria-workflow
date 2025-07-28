@@ -29,6 +29,9 @@ from dataclasses import dataclass, field
 from enum import Enum
 import threading
 from pathlib import Path
+import ssl
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 
 # Custom Exceptions for specific error handling
@@ -44,6 +47,11 @@ class DecretoValidationError(DecretoScraperError):
 
 class DecretoConnectionError(DecretoScraperError):
     """Raised when connection to decreto website fails."""
+    pass
+
+
+class DecretoSSLError(DecretoScraperError):
+    """Raised when SSL verification fails."""
     pass
 
 
@@ -159,6 +167,7 @@ class DecretoScraper:
         max_retries: int = 3,
         timeout: int = 30,
         verify_ssl: bool = True,
+        allow_unverified_ssl: bool = True,
         debug_mode: bool = False,
         log_level: LogLevel = LogLevel.INFO,
         log_file: Optional[str] = None,
@@ -172,7 +181,8 @@ class DecretoScraper:
             rate_limit: Minimum seconds between requests
             max_retries: Maximum number of retry attempts
             timeout: Request timeout in seconds
-            verify_ssl: Whether to verify SSL certificates
+            verify_ssl: Whether to verify SSL certificates (primary attempt)
+            allow_unverified_ssl: Allow fallback to unverified SSL connections
             debug_mode: Enable comprehensive debug mode
             log_level: Logging detail level
             log_file: Optional log file path
@@ -184,7 +194,12 @@ class DecretoScraper:
         self.max_retries = self._validate_numeric(max_retries, "max_retries", min_val=1, max_val=10)
         self.timeout = self._validate_numeric(timeout, "timeout", min_val=5, max_val=300)
         self.verify_ssl = verify_ssl
+        self.allow_unverified_ssl = allow_unverified_ssl
         self.last_request_time = 0
+        
+        # SSL configuration tracking
+        self.ssl_failed_attempts = 0
+        self.ssl_fallback_active = False
         
         # Enhanced debug and logging configuration
         self.debug_mode = debug_mode
@@ -235,20 +250,140 @@ class DecretoScraper:
             "deliberazione": r"(?:Deliberazione|DELIBERAZIONE)\s*(?:n\.|N\.|num\.|NUM\.)\s*(\d+)",
         }
 
-        self.session = requests.Session()
-        self.session.headers.update(self.headers)
+        # Initialize session with SSL configurations
+        self._setup_session()
         
-        # Configure SSL verification
-        if not self.verify_ssl:
-            self.session.verify = False
-            # Disable SSL warnings when verification is disabled
-            import urllib3
-            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        # User agent rotation for better resilience
+        self.user_agents = [
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:89.0) Gecko/20100101 Firefox/89.0"
+        ]
+        self.current_user_agent_index = 0
 
         # Final initialization log
         self._log_info(f"DecretoScraper initialized with session_id: {self.session_id}")
         if self.debug_mode:
             self._log_debug(f"Debug mode active - base_url: {self._sanitize_for_log(self.base_url)}")
+            self._log_debug(f"SSL settings - verify_ssl: {self.verify_ssl}, allow_unverified_ssl: {self.allow_unverified_ssl}")
+        
+        # Test connectivity on initialization
+        if self.debug_mode:
+            self._test_site_connectivity()
+
+    def _setup_session(self) -> None:
+        """Setup requests session with SSL configuration and fallback strategies."""
+        self.session = requests.Session()
+        self.session.headers.update(self.headers)
+        
+        # Configure retry strategy
+        retry_strategy = Retry(
+            total=self.max_retries,
+            backoff_factor=1,
+            status_forcelist=[429, 500, 502, 503, 504],
+        )
+        adapter = HTTPAdapter(max_retries=retry_strategy)
+        self.session.mount("http://", adapter)
+        self.session.mount("https://", adapter)
+        
+        # Configure SSL verification
+        if not self.verify_ssl:
+            self.session.verify = False
+            # Disable SSL warnings when verification is disabled
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+            self._log_warning("SSL verification disabled - connections are not secure")
+    
+    def _create_unverified_session(self) -> requests.Session:
+        """Create a new session with SSL verification disabled as fallback."""
+        try:
+            self._log_warning("Creating unverified SSL session as fallback")
+            
+            # Create SSL context that doesn't verify certificates
+            ssl_context = ssl.create_default_context()
+            ssl_context.check_hostname = False
+            ssl_context.verify_mode = ssl.CERT_NONE
+            
+            session = requests.Session()
+            session.verify = False
+            session.headers.update(self.headers)
+            
+            # Rotate user agent
+            self._rotate_user_agent()
+            session.headers.update({"User-Agent": self.user_agents[self.current_user_agent_index]})
+            
+            # Configure retry strategy
+            retry_strategy = Retry(
+                total=self.max_retries,
+                backoff_factor=1,
+                status_forcelist=[429, 500, 502, 503, 504],
+            )
+            adapter = HTTPAdapter(max_retries=retry_strategy)
+            session.mount("http://", adapter)
+            session.mount("https://", adapter)
+            
+            # Disable SSL warnings
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+            
+            self._log_info("Unverified SSL session created successfully")
+            return session
+            
+        except Exception as e:
+            self._log_error(f"Failed to create unverified SSL session: {e}")
+            raise DecretoSSLError(f"Cannot create unverified SSL session: {e}")
+    
+    def _rotate_user_agent(self) -> None:
+        """Rotate to next user agent for better request resilience."""
+        self.current_user_agent_index = (self.current_user_agent_index + 1) % len(self.user_agents)
+        self._log_debug(f"Rotated to user agent index: {self.current_user_agent_index}")
+    
+    def _test_site_connectivity(self) -> bool:
+        """Test connectivity to the decreto website."""
+        try:
+            self._log_debug("Testing site connectivity...")
+            
+            # First try with SSL verification
+            test_url = self.base_url
+            response = self.session.head(test_url, timeout=10)
+            
+            if response.status_code == 200:
+                self._log_info("Site connectivity test passed with SSL verification")
+                return True
+            else:
+                self._log_warning(f"Site returned status {response.status_code}")
+                return False
+                
+        except requests.exceptions.SSLError as e:
+            self._log_warning(f"SSL connectivity test failed: {e}")
+            if self.allow_unverified_ssl:
+                return self._test_unverified_connectivity()
+            return False
+            
+        except Exception as e:
+            self._log_error(f"Connectivity test failed: {e}")
+            return False
+    
+    def _test_unverified_connectivity(self) -> bool:
+        """Test connectivity with unverified SSL as fallback."""
+        try:
+            self._log_debug("Testing unverified SSL connectivity...")
+            
+            unverified_session = self._create_unverified_session()
+            test_url = self.base_url
+            response = unverified_session.head(test_url, timeout=10)
+            
+            if response.status_code == 200:
+                self._log_info("Site connectivity test passed with unverified SSL")
+                self.ssl_fallback_active = True
+                return True
+            else:
+                self._log_warning(f"Unverified SSL test returned status {response.status_code}")
+                return False
+                
+        except Exception as e:
+            self._log_error(f"Unverified SSL connectivity test failed: {e}")
+            return False
 
     def setup_enhanced_logging(self) -> None:
         """Setup enhanced logging configuration with multiple handlers and formats."""
@@ -891,6 +1026,24 @@ class DecretoScraper:
                 self.logger.debug(f"Request successful: {response.status_code}")
                 return response
 
+            except requests.exceptions.SSLError as e:
+                self.ssl_failed_attempts += 1
+                self._log_warning(f"SSL error (attempt {attempt + 1}/{self.max_retries}): {e}")
+                
+                # Try SSL fallback if allowed and not already active
+                if self.allow_unverified_ssl and not self.ssl_fallback_active:
+                    try:
+                        self._log_info("Attempting SSL fallback with unverified connection")
+                        fallback_response = self._make_request_with_fallback(validated_url, sanitized_params)
+                        if fallback_response:
+                            self.ssl_fallback_active = True
+                            self._log_info("SSL fallback successful")
+                            return fallback_response
+                    except Exception as fallback_error:
+                        self._log_error(f"SSL fallback failed: {fallback_error}")
+                
+                last_exception = DecretoSSLError(f"SSL verification failed: {e}")
+                
             except requests.exceptions.ConnectionError as e:
                 last_exception = DecretoConnectionError(f"Connection failed: {e}")
                 self.logger.warning(f"Connection error (attempt {attempt + 1}/{self.max_retries}): {e}")
@@ -913,6 +1066,18 @@ class DecretoScraper:
                 self.logger.debug(f"Backing off for {backoff_time:.2f} seconds")
                 time.sleep(backoff_time)
 
+        # All retries failed - try one final SSL fallback attempt
+        if self.allow_unverified_ssl and not self.ssl_fallback_active and self.ssl_failed_attempts > 0:
+            try:
+                self._log_info("Final attempt with SSL fallback before giving up")
+                fallback_response = self._make_request_with_fallback(validated_url, sanitized_params)
+                if fallback_response:
+                    self.ssl_fallback_active = True
+                    self._log_info("Final SSL fallback successful")
+                    return fallback_response
+            except Exception as final_error:
+                self._log_error(f"Final SSL fallback failed: {final_error}")
+        
         # All retries failed
         error_msg = f"All {self.max_retries} retry attempts failed for {self._sanitize_for_log(validated_url)}"
         self.logger.error(error_msg)
@@ -921,6 +1086,33 @@ class DecretoScraper:
             raise last_exception
         else:
             raise DecretoConnectionError(error_msg)
+    
+    def _make_request_with_fallback(self, url: str, params: dict = None) -> Optional[requests.Response]:
+        """Make request using unverified SSL session as fallback."""
+        try:
+            # Create unverified session
+            fallback_session = self._create_unverified_session()
+            
+            self._log_debug(f"Making fallback request to {self._sanitize_for_log(url)}")
+            
+            response = fallback_session.get(
+                url,
+                params=params,
+                timeout=self.timeout * 2,  # Double timeout for fallback
+                allow_redirects=True
+            )
+            
+            response.raise_for_status()
+            
+            # Trace response if enabled
+            self._trace_response(response)
+            
+            self._log_info(f"Fallback request successful: {response.status_code}")
+            return response
+            
+        except Exception as e:
+            self._log_error(f"Fallback request failed: {e}")
+            raise DecretoSSLError(f"SSL fallback request failed: {e}")
 
     def verify_decreto_publication(
         self, seduta: str, numero: str, oggetto: str, data_seduta: Optional[str] = None
@@ -1887,6 +2079,46 @@ class DecretoScraper:
                     return None
 
         return None
+    
+    def _make_enhanced_request_with_fallback(self, url: str, params: dict = None, method: str = "GET", json_data: dict = None) -> Optional[requests.Response]:
+        """Make enhanced request using unverified SSL session as fallback."""
+        try:
+            # Create unverified session
+            fallback_session = self._create_unverified_session()
+            
+            self._log_debug(f"Making enhanced fallback {method} request to {self._sanitize_for_log(url)}")
+            
+            if method.upper() == "POST":
+                if json_data:
+                    response = fallback_session.post(
+                        url,
+                        json=json_data,
+                        timeout=self.timeout * 2,  # Double timeout for fallback
+                        allow_redirects=True
+                    )
+                else:
+                    response = fallback_session.post(
+                        url,
+                        data=params,
+                        timeout=self.timeout * 2,
+                        allow_redirects=True
+                    )
+            else:
+                response = fallback_session.get(
+                    url,
+                    params=params,
+                    timeout=self.timeout * 2,
+                    allow_redirects=True
+                )
+            
+            response.raise_for_status()
+            
+            self._log_info(f"Enhanced fallback request successful: {response.status_code}")
+            return response
+            
+        except Exception as e:
+            self._log_error(f"Enhanced fallback request failed: {e}")
+            raise DecretoSSLError(f"Enhanced SSL fallback request failed: {e}")
 
     def get_decreto_details(self, decreto_url: str) -> dict:
         """

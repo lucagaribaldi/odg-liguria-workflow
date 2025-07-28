@@ -125,7 +125,7 @@ class ODGPDFParser:
 
         # First extract session information to add to each deliberation
         session_info = self._extract_session_info(text)
-        
+
         # Look for deliberation patterns in ODG format
         # Pattern: uf0b7 N° d'ordine in ODG: X [FS] (uf0b7 is the bullet character)
         pattern = r"\uf0b7\s*N°\s*d\'ordine\s*in\s*ODG:\s*(\d+)\s*(FS)?\s*\n\s*Tipo\s*Atto:\s*([^\n]+)\s*\n\s*Oggetto:\s*([^\uf0b7]+?)(?=\n\s*Amministratore\s*proponente:)\s*\n\s*Amministratore\s*proponente:\s*([^\n\uf0b7]+)"
@@ -147,7 +147,7 @@ class ODGPDFParser:
                 "fs_flag": bool(fs_flag),
                 "order": len(deliberations) + 1,
             }
-            
+
             # Add session information to each deliberation
             if session_info.get("numero_seduta"):
                 deliberation["seduta"] = session_info["numero_seduta"]

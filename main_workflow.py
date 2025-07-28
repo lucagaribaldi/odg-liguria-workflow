@@ -273,6 +273,25 @@ class ODGWorkflow:
                 }
                 scraping_results.append(decreto_result)
                 
+                # Update Notion with decreto results if available
+                if self.notion_integrator and decreto_result:
+                    try:
+                        # Find existing page in Notion
+                        existing_page = self.notion_integrator.find_existing_deliberation(
+                            seduta, numero
+                        )
+                        if existing_page:
+                            # Update with decreto results
+                            update_success = self.notion_integrator.update_deliberation_with_decreto_info(
+                                existing_page.page_id, decreto_result
+                            )
+                            if update_success:
+                                self.logger.info(f"   📊 Updated Notion page for decreto {numero}")
+                            else:
+                                self.logger.warning(f"   ⚠️ Failed to update Notion page for decreto {numero}")
+                    except Exception as notion_error:
+                        self.logger.error(f"   ❌ Notion update error for decreto {numero}: {notion_error}")
+                
                 if decreto_result.get("found"):
                     self.logger.info(f"   ✅ Decreto {numero} found: {decreto_result.get('url', 'N/A')}")
                 else:
