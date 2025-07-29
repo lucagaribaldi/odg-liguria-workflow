@@ -1,0 +1,426 @@
+{
+  "exploration_timestamp": 1753779321.7160478,
+  "base_url": "https://www.regione.liguria.it",
+  "results": {
+    "homepage_analysis": {
+      "nav_links": [
+        {
+          "url": "https://www.regione.liguria.it/homepage-giunta.html",
+          "text": "giunta",
+          "section": "administrative"
+        },
+        {
+          "url": "https://www.regione.liguria.it/homepage-giunta.html",
+          "text": "giunta",
+          "section": "administrative"
+        },
+        {
+          "url": "https://www.regione.liguria.it/homepage-giunta.html",
+          "text": "giunta",
+          "section": "administrative"
+        },
+        {
+          "url": "https://www.regione.liguria.it/homepage-giunta.html",
+          "text": "giunta",
+          "section": "administrative"
+        },
+        {
+          "url": "https://www.regione.liguria.it/homepage-giunta.html",
+          "text": "giunta",
+          "section": "administrative"
+        },
+        {
+          "url": "https://www.regione.liguria.it/homepage-giunta.html",
+          "text": "giunta",
+          "section": "administrative"
+        },
+        {
+          "url": "https://www.regione.liguria.it/contatti.html",
+          "text": "contatti",
+          "section": "acts"
+        },
+        {
+          "url": "https://www.regione.liguria.it/homepage-amministrazione-trasparente.html",
+          "text": "amministrazione trasparente",
+          "section": "other"
+        },
+        {
+          "url": "https://www.regione.liguria.it/homepage-attivita-istituzionale/atti-di-notifica/avvisi-atti-notifica.html",
+          "text": "atti di notifica",
+          "section": "acts"
+        }
+      ],
+      "search_forms": [],
+      "total_links": 128
+    },
+    "relevant_sections": [
+      {
+        "url": "https://www.regione.liguria.it/homepage-attivita-istituzionale/atti-di-notifica/avvisi-atti-notifica.html",
+        "title": "attività istituzionale - avvisi - Regione Liguria",
+        "relevance_score": 1807,
+        "decree_indicators": 0,
+        "recent_year_indicators": 599,
+        "deliberation_links": [],
+        "has_search": true,
+        "description": "Il sito ufficiale della Regione Liguria: tutti i servizi online e le pagine di approfondimento delle attività dell'Ente nell'esercizio delle sue competenze."
+      },
+      {
+        "url": "https://www.regione.liguria.it/bandi-e-avvisi",
+        "title": "homepage bandi e avvisi",
+        "relevance_score": 97,
+        "decree_indicators": 0,
+        "recent_year_indicators": 29,
+        "deliberation_links": [],
+        "has_search": true,
+        "description": "Il sito ufficiale della Regione Liguria: tutti i servizi online e le pagine di approfondimento delle attività dell'Ente nell'esercizio delle sue competenze."
+      },
+      {
+        "url": "https://www.regione.liguria.it/amministrazione-trasparente",
+        "title": "amministrazione trasparente - Regione Liguria",
+        "relevance_score": 60,
+        "decree_indicators": 1,
+        "recent_year_indicators": 16,
+        "deliberation_links": [],
+        "has_search": true,
+        "description": "Il sito ufficiale della Regione Liguria: tutti i servizi online e le pagine di approfondimento delle attività dell'Ente nell'esercizio delle sue competenze."
+      },
+      {
+        "url": "https://www.regione.liguria.it/homepage-giunta",
+        "title": "homepage giunta - Regione Liguria",
+        "relevance_score": 15,
+        "decree_indicators": 1,
+        "recent_year_indicators": 1,
+        "deliberation_links": [],
+        "has_search": true,
+        "description": "Il sito ufficiale della Regione Liguria: tutti i servizi online e le pagine di approfondimento delle attività dell'Ente nell'esercizio delle sue competenze."
+      },
+      {
+        "url": "https://www.regione.liguria.it/homepage-giunta.html",
+        "title": "homepage giunta - Regione Liguria",
+        "relevance_score": 15,
+        "decree_indicators": 1,
+        "recent_year_indicators": 1,
+        "deliberation_links": [],
+        "has_search": true,
+        "description": "Il sito ufficiale della Regione Liguria: tutti i servizi online e le pagine di approfondimento delle attività dell'Ente nell'esercizio delle sue competenze."
+      },
+      {
+        "url": "https://www.regione.liguria.it/contatti.html",
+        "title": "attività istituzionale - contatti - Regione Liguria",
+        "relevance_score": 10,
+        "decree_indicators": 0,
+        "recent_year_indicators": 0,
+        "deliberation_links": [],
+        "has_search": true,
+        "description": "Il sito ufficiale della Regione Liguria: tutti i servizi online e le pagine di approfondimento delle attività dell'Ente nell'esercizio delle sue competenze."
+      }
+    ],
+    "decree_pages": [],
+    "search_functionality": {
+      "search_pages": [
+        {
+          "url": "https://www.regione.liguria.it/cerca",
+          "action": "/cerca.html",
+          "method": "post",
+          "fields": [
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "option",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "view",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            },
+            {
+              "name": "q",
+              "type": "text",
+              "placeholder": "Digita e premi invio per effettuare la ricerca",
+              "id": "mod_search_searchword-244"
+            },
+            {
+              "name": "",
+              "type": "submit",
+              "placeholder": "",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "url": "https://www.regione.liguria.it/cerca",
+          "action": "/cerca.html",
+          "method": "POST",
+          "fields": [
+            {
+              "name": "q",
+              "type": "text",
+              "placeholder": "",
+              "id": "search_searchword"
+            },
+            {
+              "name": "p",
+              "type": "hidden",
+              "placeholder": "",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "global_search": {
+        "url": "https://www.regione.liguria.it/cerca",
+        "action": "/cerca.html",
+        "method": "post",
+        "fields": [
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "contenttypes[]",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "option",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "view",
+            "type": "hidden",
+            "placeholder": "",
+            "id": ""
+          },
+          {
+            "name": "q",
+            "type": "text",
+            "placeholder": "Digita e premi invio per effettuare la ricerca",
+            "id": "mod_search_searchword-244"
+          },
+          {
+            "name": "",
+            "type": "submit",
+            "placeholder": "",
+            "id": ""
+          }
+        ]
+      },
+      "advanced_search": null
+    },
+    "recent_deliberations": []
+  },
+  "explored_urls_count": 6,
+  "total_relevant_sections": 6,
+  "total_recent_deliberations": 0
+}

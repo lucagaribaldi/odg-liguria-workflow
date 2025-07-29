@@ -133,5 +133,20 @@
     "http_errors": 0,
     "timeout_errors": 0,
     "avg_response_time": 0
+  },
+  {
+    "timestamp": "2025-07-28T18:08:55.005641",
+    "site_status": "critical",
+    "response_time_ms": 0,
+    "ssl_valid": false,
+    "ssl_expires_days": null,
+    "scraping_success_rate": 0.0,
+    "total_checks": 10,
+    "successful_connections": 1,
+    "failed_connections": 0,
+    "ssl_errors": 1,
+    "http_errors": 0,
+    "timeout_errors": 0,
+    "avg_response_time": 0
   }
 ]

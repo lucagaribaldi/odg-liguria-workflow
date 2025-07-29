@@ -1,0 +1,211 @@
+{
+  "exploration_timestamp": 1753779425.844744,
+  "target_url": "https://www.regione.liguria.it/homepage-attivita-istituzionale/atti-di-notifica/avvisi-atti-notifica.html",
+  "results": {
+    "page_analysis": {
+      "title": "attività istituzionale - avvisi - Regione Liguria",
+      "total_links": 383,
+      "total_text_length": 64742,
+      "has_tables": false,
+      "has_lists": true,
+      "has_forms": true,
+      "structural_elements": {
+        "tables": 0,
+        "divs_with_date": 0,
+        "lists": 41,
+        "articles": 1,
+        "sections": 0
+      }
+    },
+    "year_2025_references": [],
+    "year_2024_references": [],
+    "decree_references": [
+      {
+        "url": "https://www.regione.liguria.it/homepage-giunta.html",
+        "text": "giunta",
+        "relevance_score": 3,
+        "has_recent_years": false
+      },
+      {
+        "url": "https://www.regione.liguria.it/homepage-giunta.html",
+        "text": "giunta",
+        "relevance_score": 3,
+        "has_recent_years": false
+      },
+      {
+        "url": "https://www.regione.liguria.it/homepage-giunta.html",
+        "text": "giunta",
+        "relevance_score": 3,
+        "has_recent_years": false
+      }
+    ],
+    "deliberation_references": [],
+    "search_functionality": {
+      "forms": [
+        {
+          "action": "/cerca.html",
+          "method": "post",
+          "fields": [
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "1"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "2"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "3"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "4"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "5"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "6"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "7"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "8"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "11"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "12"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "13"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "14"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "15"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "16"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "17"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "18"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "19"
+            },
+            {
+              "name": "contenttypes[]",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "20"
+            },
+            {
+              "name": "option",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "com_flexicontent"
+            },
+            {
+              "name": "view",
+              "type": "hidden",
+              "placeholder": "",
+              "id": "",
+              "value": "search"
+            },
+            {
+              "name": "q",
+              "type": "text",
+              "placeholder": "Digita e premi invio per effettuare la ricerca",
+              "id": "mod_search_searchword-244",
+              "value": ""
+            },
+            {
+              "name": "",
+              "type": "submit",
+              "placeholder": "",
+              "id": "",
+              "value": "cerca"
+            }
+          ]
+        }
+      ],
+      "filter_elements": [],
+      "has_search": true
+    },
+    "related_links": []
+  }
+}
