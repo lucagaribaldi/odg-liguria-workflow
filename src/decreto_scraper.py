@@ -1150,6 +1150,191 @@ class DecretoScraper(DecretoScraperAdvanced):
     pass
 
 
+class HybridDecretoScraper:
+    """
+    Hybrid decreto scraper che combina DecretoScraperAdvanced e SeleniumDecretoScraper.
+    
+    Utilizza una strategia intelligente:
+    1. Prima prova con DecretoScraperAdvanced (veloce)
+    2. Se fallisce o confidence bassa, fallback a Selenium
+    3. Ritorna il miglior risultato disponibile
+    """
+    
+    def __init__(
+        self,
+        confidence_threshold: float = 0.7,
+        prefer_selenium: bool = False,
+        debug_mode: bool = False,
+        log_level: LogLevel = LogLevel.INFO
+    ):
+        """
+        Inizializza hybrid scraper.
+        
+        Args:
+            confidence_threshold: Soglia confidence per considerare valido il risultato
+            prefer_selenium: Se True, usa Selenium come prima scelta
+            debug_mode: Modalità debug
+            log_level: Livello logging
+        """
+        self.confidence_threshold = confidence_threshold
+        self.prefer_selenium = prefer_selenium
+        self.debug_mode = debug_mode
+        self.log_level = log_level
+        
+        # Setup logging
+        self.logger = logging.getLogger(f"{__name__}.HybridDecretoScraper")
+        if self.log_level == LogLevel.SILENT:
+            self.logger.setLevel(logging.CRITICAL + 1000)
+        elif self.log_level == LogLevel.ERROR:
+            self.logger.setLevel(logging.ERROR)
+        elif self.log_level == LogLevel.WARN:
+            self.logger.setLevel(logging.WARNING)
+        elif self.log_level == LogLevel.INFO:
+            self.logger.setLevel(logging.INFO)
+        elif self.log_level == LogLevel.DEBUG:
+            self.logger.setLevel(logging.DEBUG)
+        elif self.log_level == LogLevel.TRACE:
+            self.logger.setLevel(5)
+            
+        if not self.logger.handlers:
+            handler = logging.StreamHandler()
+            formatter = logging.Formatter(
+                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            )
+            handler.setFormatter(formatter)
+            self.logger.addHandler(handler)
+            
+        self.logger.info("HybridDecretoScraper initialized")
+    
+    def verify_decreto_publication(
+        self,
+        seduta: str,
+        numero: str,
+        oggetto: str,
+        anno: Optional[str] = None,
+        **kwargs
+    ) -> Tuple[bool, Optional[str], float]:
+        """
+        Verifica pubblicazione decreto con strategia ibrida.
+        
+        Args:
+            seduta: Numero seduta
+            numero: Numero decreto
+            oggetto: Oggetto decreto
+            anno: Anno (opzionale)
+            **kwargs: Altri parametri
+            
+        Returns:
+            Tupla (found, url, confidence)
+        """
+        self.logger.info(f"Starting hybrid search for decreto {numero} - {oggetto[:50]}...")
+        
+        # Determina ordine di esecuzione
+        if self.prefer_selenium:
+            scrapers = ['selenium', 'requests']
+        else:
+            scrapers = ['requests', 'selenium']
+        
+        best_result = (False, None, 0.0)
+        best_method = None
+        
+        for scraper_type in scrapers:
+            try:
+                if scraper_type == 'requests':
+                    found, url, confidence = self._try_requests_scraper(
+                        seduta, numero, oggetto, anno, **kwargs
+                    )
+                    method_name = "DecretoScraperAdvanced"
+                else:
+                    found, url, confidence = self._try_selenium_scraper(
+                        seduta, numero, oggetto, anno, **kwargs
+                    )
+                    method_name = "SeleniumDecretoScraper"
+                
+                self.logger.info(f"{method_name}: found={found}, confidence={confidence:.2f}")
+                
+                # Aggiorna miglior risultato se questo è migliore
+                if confidence > best_result[2]:
+                    best_result = (found, url, confidence)
+                    best_method = method_name
+                
+                # Se abbiamo un risultato sopra soglia, possiamo fermarci
+                if found and confidence >= self.confidence_threshold:
+                    self.logger.info(f"High confidence result found with {method_name}")
+                    break
+                    
+            except Exception as e:
+                self.logger.warning(f"Error with {scraper_type} scraper: {e}")
+                continue
+        
+        found, url, confidence = best_result
+        self.logger.info(f"Hybrid result: found={found}, confidence={confidence:.2f}, method={best_method}")
+        
+        return found, url, confidence
+    
+    def _try_requests_scraper(
+        self,
+        seduta: str,
+        numero: str,
+        oggetto: str,
+        anno: Optional[str] = None,
+        **kwargs
+    ) -> Tuple[bool, Optional[str], float]:
+        """Prova con DecretoScraperAdvanced."""
+        try:
+            with DecretoScraperAdvanced(
+                debug_mode=self.debug_mode,
+                log_level=LogLevel.WARN if self.log_level != LogLevel.TRACE else LogLevel.DEBUG,
+                verify_ssl=False  # Disabilita SSL per testing
+            ) as scraper:
+                return scraper.verify_decreto_publication(
+                    seduta, numero, oggetto, anno, **kwargs
+                )
+        except Exception as e:
+            self.logger.warning(f"DecretoScraperAdvanced failed: {e}")
+            return False, None, 0.0
+    
+    def _try_selenium_scraper(
+        self,
+        seduta: str,
+        numero: str,
+        oggetto: str,
+        anno: Optional[str] = None,
+        **kwargs
+    ) -> Tuple[bool, Optional[str], float]:
+        """Prova con SeleniumDecretoScraper."""
+        try:
+            # Import selenium scraper dynamicamente per evitare errori se non disponibile
+            from selenium_scraper import SeleniumDecretoScraper
+            
+            with SeleniumDecretoScraper(
+                headless=True,
+                debug_mode=self.debug_mode,
+                log_level=LogLevel.WARN if self.log_level != LogLevel.TRACE else LogLevel.DEBUG
+            ) as scraper:
+                return scraper.search_decreto_selenium(
+                    seduta, numero, oggetto, anno
+                )
+        except ImportError:
+            self.logger.warning("SeleniumDecretoScraper not available (missing dependencies)")
+            return False, None, 0.0
+        except Exception as e:
+            self.logger.warning(f"SeleniumDecretoScraper failed: {e}")
+            return False, None, 0.0
+    
+    def get_available_scrapers(self) -> List[str]:
+        """Ritorna lista scraper disponibili."""
+        available = ["DecretoScraperAdvanced"]
+        
+        try:
+            from selenium_scraper import SeleniumDecretoScraper
+            available.append("SeleniumDecretoScraper")
+        except ImportError:
+            pass
+            
+        return available
+
+
 if __name__ == "__main__":
     # Test example
     with DecretoScraperAdvanced(debug_mode=True, log_level=LogLevel.DEBUG) as scraper:
